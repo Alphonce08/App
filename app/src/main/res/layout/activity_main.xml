@@ -2,44 +2,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
-    android:background="#FFFFFF ">
+    android:background="#FFFFFF">
 
         <LinearLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:background="@android:color/white">
+            android:padding="24dp">
 
-
-
-                <TextView
+                <!-- Email -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="60dp"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:hint="Hello World"
-                    android:padding="14dp"
-                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="#000000"
+                    android:textColorHint="#000000">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/logEmail"
+                            android:layout_width="280dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:inputType="textEmailAddress"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Password -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
-                    android:inputType="date"/>
+                    app:endIconMode="password_toggle"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="#000000"
+                    android:textColorHint="#000000">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/logPass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:inputType="textPassword"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-
-
-                <!-- Save Button -->
+                <!-- Button -->
                 <Button
                     android:id="@+id/LoginBtn"
                     android:layout_width="170dp"
-                    android:layout_height="60dp"
+                    android:layout_height="55dp"
                     android:text="Login"
-                    android:textSize="18sp"
+                    android:layout_marginStart="80dp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="450dp"
-                    android:layout_marginLeft="70dp"
-                    android:backgroundTint="#1976D2"
-                    android:textColor="@android:color/white"/>
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="#1A73E8"
+                    android:textColor="#FFFFFF"/>
+
+                <!-- Forgot Password -->
+                <TextView
+                    android:id="@+id/txtForgotPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Forgot Password?"
+                    android:textColor="#1A73E8"
+                    android:textSize="14sp"
+                    android:layout_marginTop="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_gravity="end"/>
 
         </LinearLayout>
 

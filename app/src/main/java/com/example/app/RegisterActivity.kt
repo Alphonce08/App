@@ -1,7 +1,9 @@
 package com.example.app
 //https://justpaste.it/jn3sy
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,8 @@ class RegisterActivity : AppCompatActivity() {
 
     lateinit var edtPass2: EditText
 
+    lateinit var Reg: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,10 +27,14 @@ class RegisterActivity : AppCompatActivity() {
         edtEmail = findViewById(R.id.edtEmail)
         edtPass = findViewById(R.id.edtPass)
         edtPass2 = findViewById(R.id.edtPass2)
+        Reg = findViewById(R.id.Reg)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        Reg.setOnClickListener {
+            startActivity(Intent(applicationContext, HomeActivity::class.java))
         }
     }
 }
