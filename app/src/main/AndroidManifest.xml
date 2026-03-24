@@ -13,6 +13,9 @@
         android:theme="@style/Theme.App"
         android:windowSoftInputMode="adjustResize">
         <activity
+            android:name=".ForgetActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
