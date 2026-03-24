@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FFFF"
     tools:context=".HomeActivity">
 <LinearLayout
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#000000"
+    android:background="#FFFF"
     android:padding="20dp">
     <!-- Date Box -->
     <androidx.cardview.widget.CardView
@@ -17,21 +18,23 @@
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Date"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/date"
-            android:background="#FFFF"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Date"
-            android:textColor="#000000"
-            android:padding="14dp"
-            android:textAppearance="@color/black"
-            android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:inputType="date"/>
-    </androidx.cardview.widget.CardView>
-
+    </com.google.android.material.textfield.TextInputLayout>
     <!-- OB Number Box -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -78,21 +81,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"/>
 
-        <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Occurrence details"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/occurrence"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="#FFFF"
-            android:textColor="#000000"
-            android:minHeight="120dp"
-            android:hint="Occurrence details"
-            android:padding="14dp"
-            android:textSize="16sp"
-            android:inputType="textMultiLine"
-            android:gravity="top|start"/>
-    </androidx.cardview.widget.CardView>
+            android:layout_height="120dp"
+            android:gravity="top"
+            android:textColor="@android:color/black"
+            android:inputType="textMultiLine"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Signature Box -->
     <androidx.cardview.widget.CardView
