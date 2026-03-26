@@ -2,6 +2,7 @@ package com.example.app
 
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -37,9 +38,11 @@ class HomeActivity : AppCompatActivity() {
         // database = FirebaseDatabase.getInstance().getReference("OB_Records")
 
         // Button click
+
         saveBtn.setOnClickListener {
             saveData()
         }
+
     }
 
     private fun saveData() {
@@ -52,6 +55,10 @@ class HomeActivity : AppCompatActivity() {
         if (sDate.isEmpty() || sOb.isEmpty() || sTime.isEmpty() || sOcc.isEmpty() || sSign.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
+        }
+        saveBtn.setOnClickListener{
+            startActivity(Intent(this, ViewActivity::class.java))
+
         }
 
 //        val id = database.push().key!!
