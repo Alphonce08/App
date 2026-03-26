@@ -133,5 +133,25 @@
             android:backgroundTint="#1A73E8"
             android:textColor="#FFFFFF"/>
 
+
+        <ImageView
+            android:id="@+id/view"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/view"/>
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:text="View"
+            android:layout_marginStart="30dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+
+
+
+
     </LinearLayout>
 </ScrollView>

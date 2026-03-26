@@ -18,6 +18,8 @@ import android.text.style.ForegroundColorSpan
 import android.graphics.Color
 import android.view.View
 import android.text.TextPaint
+import android.widget.Toast
+import com.google.firebase.database.FirebaseDatabase
 
 
 
@@ -47,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         }
         LoginBtn.setOnClickListener {
             startActivity(Intent(applicationContext, RegisterActivity::class.java))
+        }
+        txtForgotPassword.setOnClickListener {
+            startActivity(Intent(applicationContext, ForgetActivity::class.java))
         }
         signup.setOnClickListener {
             startActivity(Intent(applicationContext, RegisterActivity::class.java))
