@@ -1,15 +1,12 @@
 package com.example.app
 
-
-
 import android.content.Intent
 import android.os.Bundle
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class HomeActivity : AppCompatActivity() {
 
@@ -20,11 +17,12 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var sign: EditText
     private lateinit var saveBtn: Button
 
+    private lateinit var database: DatabaseReference   // ✅ FIXED
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
-
 
         // Link UI
         date = findViewById(R.id.date)
@@ -34,18 +32,16 @@ class HomeActivity : AppCompatActivity() {
         sign = findViewById(R.id.sign)
         saveBtn = findViewById(R.id.saveBtn)
 
-        // Firebase reference
-        // database = FirebaseDatabase.getInstance().getReference("OB_Records")
-
-        // Button click
+        // ✅ Firebase reference
+        database = FirebaseDatabase.getInstance().getReference("occurrences")
 
         saveBtn.setOnClickListener {
             saveData()
         }
-
     }
 
     private fun saveData() {
+
         val sDate = date.text.toString()
         val sOb = obNumber.text.toString()
         val sTime = time.text.toString()
@@ -56,23 +52,22 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
-        saveBtn.setOnClickListener{
-            startActivity(Intent(this, ViewActivity::class.java))
 
+        val id = database.push().key!!   // ✅ generate ID
+
+        val ob = Occurrence(id, sDate, sTime, sOcc, sSign)  // ✅ use correct model
+
+        database.child(id).setValue(ob).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(this, "Saved successfully", Toast.LENGTH_SHORT).show()
+                clearFields()
+
+                // ✅ Move to ViewActivity AFTER saving
+                startActivity(Intent(this, ViewActivity::class.java))
+            } else {
+                Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show()
+            }
         }
-
-//        val id = database.push().key!!
-//
-//        val ob = OBModel(sDate, sOb, sTime, sOcc, sSign)
-//
-//        database.child(id).setValue(ob).addOnCompleteListener {
-//            if (it.isSuccessful) {
-//                Toast.makeText(this, "Saved successfully", Toast.LENGTH_SHORT).show()
-//                clearFields()
-//            } else {
-//                Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show()
-//            }
-//        }
     }
 
     private fun clearFields() {

@@ -1,139 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ViewActivity">
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="#F5F5F5"
+    android:layout_margin="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/date"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <GridLayout
-            android:layout_width="60dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            >
-
-            <LinearLayout
-                android:layout_width="60dp"
-                android:layout_height="45dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/home"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal" />
-
-            </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textColor="#000"/>
 
 
-        </GridLayout>
+    <TextView
+        android:id="@+id/obNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OB Number"
+        android:textColor="#000"/>
 
-        <TextView
-            android:id="@+id/mTxtDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="#080809"
-            android:textSize="20sp"
-            android:layout_marginTop="60dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:textColor="#000"/>
 
+    <TextView
+        android:id="@+id/occurBk"
+        android:text="Details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"/>
 
-        <TextView
-            android:id="@+id/obNum"
-            android:layout_width="55dp"
-            android:layout_height="25dp"
-            android:text="Time"
-            android:layout_marginStart="250dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/sign"
+        android:text="Signature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"/>
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="55dp"
-            android:layout_height="25dp"
-            android:text="Time"
-            android:layout_marginStart="250dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
-
-        <TextView
-            android:id="@+id/occurBk"
-            android:layout_width="55dp"
-            android:layout_height="25dp"
-            android:text="Time"
-            android:layout_marginStart="250dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
-
-         <TextView
-             android:id="@+id/sign"
-             android:layout_width="55dp"
-             android:layout_height="25dp"
-             android:text="Time"
-             android:layout_marginStart="250dp"
-             android:layout_marginTop="20dp"
-             android:textSize="20sp"
-             android:textColor="@color/white">
-
-
-
-        </TextView>
-    </LinearLayout>
-    <ListView
-        android:id="@+id/obNumy"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:text="Update" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:text="Delete" />
-        </LinearLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"/>
+</LinearLayout>
