@@ -1,12 +1,15 @@
 package com.example.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 
 class ViewActivity : AppCompatActivity() {
+    private lateinit var newOB: TextView
 
     private lateinit var listView: ListView
     private lateinit var dataList: ArrayList<Occurrence>
@@ -19,6 +22,8 @@ class ViewActivity : AppCompatActivity() {
 
         // Link ListView
         listView = findViewById(R.id.listView)
+
+        newOB = findViewById(R.id.newOB)
 
         // Initialize list
         dataList = ArrayList()
@@ -61,5 +66,8 @@ class ViewActivity : AppCompatActivity() {
                 Toast.makeText(this@ViewActivity, "Failed to load data", Toast.LENGTH_SHORT).show()
             }
         })
+        newOB.setOnClickListener {
+            startActivity(Intent(applicationContext, HomeActivity::class.java))
+        }
     }
 }

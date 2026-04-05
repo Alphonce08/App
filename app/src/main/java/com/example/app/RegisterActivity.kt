@@ -34,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
             insets
         }
         Reg.setOnClickListener {
-            startActivity(Intent(applicationContext, HomeActivity::class.java))
+            startActivity(Intent(applicationContext, ViewActivity::class.java))
         }
     }
 }

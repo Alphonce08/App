@@ -3,10 +3,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="#F5F5F5">
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/newOB"
+        android:text="Create New OB"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
     <ListView
         android:id="@+id/listView"
+        android:layout_marginStart="35dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

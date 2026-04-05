@@ -34,13 +34,11 @@ class CustomAdapter(
 
         // ✅ Set data safely
 
-        date.text = item.date ?: ""
-        obNum.text = item.obNumber ?: ""
-        timeTxt.text = item.time ?: ""
-        occurBk.text = item.occurence ?: ""
-        signTxt.text = item.sign ?: ""
-        // ❌ REMOVE THIS LINE (WRONG)
-        // signTxt.text = item.btn_save ?: ""
+        date.text = "Date:  ${item.date ?: ""}"
+        obNum.text = "OB Number:  ${item.obNumber ?: ""}"
+        timeTxt.text = "Time:  ${item.time ?: ""}"
+        occurBk.text = "Occurrence Details:  ${item.occurence ?: ""}"
+        signTxt.text = "Signature:  ${item.sign ?: ""}"
 
         // ✅ Delete from Firebase
         btnDelete.setOnClickListener {
