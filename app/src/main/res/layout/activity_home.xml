@@ -42,6 +42,28 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <!-- Time -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black"
+            android:hint="Time"
+            android:layout_marginTop="16dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@android:color/black"
+            app:hintTextColor="@android:color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:inputType="time"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
         <!-- OB Number -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="300dp"
@@ -62,24 +84,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- Time -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/black"
-            android:hint="Time"
-            android:layout_marginTop="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="@android:color/black"
-            app:hintTextColor="@android:color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:inputType="time"/>
-        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Occurrence -->
         <com.google.android.material.textfield.TextInputLayout

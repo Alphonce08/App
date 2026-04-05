@@ -23,20 +23,22 @@ class CustomAdapter(
         val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.view_layout, parent, false)
 
+        val date = view.findViewById<TextView>(R.id.date)
         val obNum = view.findViewById<TextView>(R.id.obNum)
         val timeTxt = view.findViewById<TextView>(R.id.time)
-        val occurBk = view.findViewById<TextView>(R.id.occurBk)
+        val occurBk = view.findViewById<TextView>(R.id.occurrence)
         val signTxt = view.findViewById<TextView>(R.id.sign)
         val btnDelete = view.findViewById<Button>(R.id.saveBtn)
 
         val item = data[position]   // ✅ This is now Occurrence
 
         // ✅ Set data safely
-        obNum.text = item.rec_id ?: ""
-        timeTxt.text = item.time ?: ""
-        occurBk.text = item.occurrence ?: ""
-        signTxt.text = item.sign ?: ""
 
+        date.text = item.date ?: ""
+        obNum.text = item.obNumber ?: ""
+        timeTxt.text = item.time ?: ""
+        occurBk.text = item.occurence ?: ""
+        signTxt.text = item.sign ?: ""
         // ❌ REMOVE THIS LINE (WRONG)
         // signTxt.text = item.btn_save ?: ""
 

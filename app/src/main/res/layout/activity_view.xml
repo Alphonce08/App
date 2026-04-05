@@ -1,50 +1,13 @@
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="#F5F5F5"
-    android:layout_margin="5dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="#F5F5F5">
 
-    <TextView
-        android:id="@+id/date"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textColor="#000"/>
+        android:layout_height="match_parent" />
 
-
-    <TextView
-        android:id="@+id/obNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="OB Number"
-        android:textColor="#000"/>
-
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Time"
-        android:textColor="#000"/>
-
-    <TextView
-        android:id="@+id/occurBk"
-        android:text="Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000"/>
-
-    <TextView
-        android:id="@+id/sign"
-        android:text="Signature"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000"/>
-
-    <Button
-        android:id="@+id/saveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"/>
 </LinearLayout>

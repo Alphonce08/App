@@ -4,6 +4,7 @@ data class Occurrence(
     var rec_id: String? = "",
     var date: String? = "",
     var time: String? = "",
-    var occurrence: String? = "",
+    var obNumber: String? = "",
+    var occurence: String? = "",
     var sign: String? = ""
 )
