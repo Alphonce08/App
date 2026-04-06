@@ -2,6 +2,7 @@ package com.example.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
@@ -9,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 
 class ViewActivity : AppCompatActivity() {
-    private lateinit var newOB: TextView
+    private lateinit var newOB: Button
 
     private lateinit var listView: ListView
     private lateinit var dataList: ArrayList<Occurrence>

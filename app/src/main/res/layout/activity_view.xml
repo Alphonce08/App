@@ -5,16 +5,20 @@
     android:padding="10dp"
     android:background="#FFFFFF">
 
-    <TextView
+
+    <Button
         android:id="@+id/newOB"
         android:text="Create New OB"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginStart="220dp"
+        android:textColor="@color/white"
+        android:layout_marginStart="180dp"
         android:layout_marginTop="50dp"
+        android:backgroundTint="#1A73E8"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
+
+
 
     <ListView
         android:id="@+id/listView"

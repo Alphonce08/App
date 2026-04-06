@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.FirebaseDatabase
 
 class CustomAdapter(
@@ -24,7 +25,7 @@ class CustomAdapter(
         val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.view_layout, parent, false)
 
-        // 🔗 Link UI (IDs MUST match XML)
+        // 🔗 Link UI
         val date = view.findViewById<TextView>(R.id.date)
         val obNum = view.findViewById<TextView>(R.id.obNum)
         val timeTxt = view.findViewById<TextView>(R.id.time)
@@ -34,40 +35,34 @@ class CustomAdapter(
 
         val item = data[position]
 
-        // ✅ Set values (labels already in XML)
+        // ✅ Bind data
         date.text = "Date: ${item.date ?: ""}"
         obNum.text = "OB Number: ${item.obNumber ?: ""}"
         timeTxt.text = "Time: ${item.time ?: ""}"
         occurBk.text = "Occurrence Details: ${item.occurence ?: ""}"
         signTxt.text = "Signature: ${item.sign ?: ""}"
 
-        // 🔽 POPUP MENU (Edit & Delete)
+        // 🔽 Popup Menu
         menuBtn.setOnClickListener {
 
             val popup = PopupMenu(context, menuBtn)
             popup.inflate(R.menu.item_menu)
 
-            popup.setOnMenuItemClickListener {
+            // ✅ Force icons to show
+            try {
+                val field = popup.javaClass.getDeclaredField("mPopup")
+                field.isAccessible = true
+                val menu = field.get(popup)
+                menu.javaClass
+                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                    .invoke(menu, true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
-                when (it.itemId) {
+            popup.setOnMenuItemClickListener { menuItem ->
 
-                    // 🗑 DELETE
-                    R.id.delete -> {
-
-                        if (item.rec_id != null) {
-                            val ref = FirebaseDatabase.getInstance()
-                                .getReference("occurrences")
-                                .child(item.rec_id!!)
-
-                            ref.removeValue().addOnSuccessListener {
-                                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
-                            }.addOnFailureListener {
-                                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-
-                        true
-                    }
+                when (menuItem.itemId) {
 
                     // ✏️ EDIT
                     R.id.edit -> {
@@ -81,6 +76,34 @@ class CustomAdapter(
                         intent.putExtra("sign", item.sign)
 
                         context.startActivity(intent)
+                        true
+                    }
+
+                    // 🗑 DELETE WITH CONFIRMATION
+                    R.id.delete -> {
+
+                        if (item.rec_id != null) {
+
+                            AlertDialog.Builder(context)
+                                .setTitle("Delete Record")
+                                .setMessage("Are you sure you want to delete this record?")
+                                .setPositiveButton("Yes") { _, _ ->
+
+                                    val ref = FirebaseDatabase.getInstance()
+                                        .getReference("occurrences")
+                                        .child(item.rec_id!!)
+
+                                    ref.removeValue()
+                                        .addOnSuccessListener {
+                                            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                                        }
+                                        .addOnFailureListener {
+                                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+                                        }
+                                }
+                                .setNegativeButton("No", null)
+                                .show()
+                        }
 
                         true
                     }

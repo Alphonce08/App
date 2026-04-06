@@ -1,18 +1,14 @@
 package com.example.app
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import com.google.firebase.database.*
 import java.util.Calendar
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 
 class HomeActivity : AppCompatActivity() {
 
@@ -28,10 +24,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        setContentView(R.layout.activity_home)
 
         val calendar = Calendar.getInstance()
-
-        setContentView(R.layout.activity_home)
 
         // Link UI
         date = findViewById(R.id.date)
@@ -41,58 +36,47 @@ class HomeActivity : AppCompatActivity() {
         sign = findViewById(R.id.sign)
         saveBtn = findViewById(R.id.saveBtn)
 
-
-
-// DATE PICKER
+        // 📅 DATE PICKER
         date.setOnClickListener {
-
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-
             val datePicker = DatePickerDialog(this, { _, y, m, d ->
-
                 val formattedDate = String.format("%02d/%02d/%02d", d, m + 1, y % 100)
                 date.setText(formattedDate)
-
-            }, year, month, day)
-
+            },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
             datePicker.show()
         }
 
-
-// TIME PICKER (24 HOURS)
+        // ⏰ TIME PICKER (24H)
         time.setOnClickListener {
-
-            val hour = calendar.get(Calendar.HOUR_OF_DAY)
-            val minute = calendar.get(Calendar.MINUTE)
-
             val timePicker = TimePickerDialog(this, { _, h, m ->
-
                 val formattedTime = String.format("%02d:%02d", h, m)
                 time.setText(formattedTime)
-
-            }, hour, minute, true) // TRUE = 24-hour format
-
+            },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
+            )
             timePicker.show()
         }
 
-
-        // Firebase reference
+        // Firebase
         database = FirebaseDatabase.getInstance().getReference("occurrences")
 
-        // Save button click
+        // Save button
         saveBtn.setOnClickListener {
             saveData()
         }
 
-        // Navigate to ViewActivity (long press)
+        // Long press → View page
         saveBtn.setOnLongClickListener {
             startActivity(Intent(this, ViewActivity::class.java))
             true
         }
-
     }
+
     private fun saveData() {
 
         val sDate = date.text.toString()
@@ -100,12 +84,20 @@ class HomeActivity : AppCompatActivity() {
         val sOcc = occurrence.text.toString()
         val sSign = sign.text.toString()
 
+        // ✅ Validation
         if (sDate.isEmpty() || sTime.isEmpty() || sOcc.isEmpty() || sSign.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
+
         if (!sSign.matches(Regex("^[a-zA-Z ]+$"))) {
             Toast.makeText(this, "Signature must contain letters only", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val parts = sDate.split("/")
+        if (parts.size < 3) {
+            Toast.makeText(this, "Invalid date format", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -116,12 +108,9 @@ class HomeActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 val count = snapshot.childrenCount + 1
-
                 val entryNumber = String.format("%03d", count)
 
-                val parts = sDate.split("/")
                 val formattedDate = parts[0] + parts[1] + parts[2]
-
                 val generatedOB = "$entryNumber/$formattedDate"
 
                 val id = ref.push().key!!
@@ -129,7 +118,7 @@ class HomeActivity : AppCompatActivity() {
                 val data = Occurrence(
                     date = sDate,
                     time = sTime,
-                    obNumber = generatedOB,   // ✅ IMPORTANT
+                    obNumber = generatedOB,
                     occurence = sOcc,
                     sign = sSign,
                     rec_id = id
@@ -137,12 +126,15 @@ class HomeActivity : AppCompatActivity() {
 
                 ref.child(id).setValue(data)
                     .addOnSuccessListener {
-                        Toast.makeText(this@HomeActivity, "Saved successfully", Toast.LENGTH_SHORT).show()
-                        clearFields()
 
-                        // Show generated OB
+                        Toast.makeText(this@HomeActivity, "Saved successfully", Toast.LENGTH_SHORT).show()
+
+                        // ✅ Show OB BEFORE clearing
                         obNumber.setText(generatedOB)
 
+                        clearFieldsExceptOB()
+
+                        // ✅ Navigate ONCE
                         startActivity(Intent(this@HomeActivity, ViewActivity::class.java))
                     }
                     .addOnFailureListener {
@@ -156,10 +148,10 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    private fun clearFields() {
+    // ✅ Clear everything EXCEPT OB
+    private fun clearFieldsExceptOB() {
         date.text.clear()
         time.text.clear()
-        obNumber.text.clear()
         occurrence.text.clear()
         sign.text.clear()
     }
