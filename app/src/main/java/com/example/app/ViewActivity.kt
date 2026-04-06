@@ -52,6 +52,7 @@ class ViewActivity : AppCompatActivity() {
                         dataList.add(item)
                     }
                 }
+                dataList.reverse()
 
                 // Set adapter only once
                 if (!::adapter.isInitialized) {

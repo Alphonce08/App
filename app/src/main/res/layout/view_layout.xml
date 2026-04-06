@@ -6,6 +6,12 @@
     android:background="#FFFFFF"
     android:layout_margin="5dp">
 
+    <ImageView
+        android:id="@+id/menuBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/bic_menu"
+        android:layout_gravity="end"/>
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
@@ -38,9 +44,4 @@
         android:layout_height="wrap_content"
         android:textColor="#000"/>
 
-    <Button
-        android:id="@+id/saveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"/>
 </LinearLayout>

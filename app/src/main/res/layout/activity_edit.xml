@@ -1,0 +1,80 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- TITLE -->
+        <TextView
+            android:layout_marginTop="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit OB Record"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- DATE -->
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="#000"
+            android:layout_marginTop="10dp"/>
+
+        <!-- TIME -->
+        <EditText
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time"
+            android:focusable="false"
+            android:clickable="true"
+            android:autofillHints="none"
+            android:textColor="#000"
+            android:layout_marginTop="10dp"/>
+
+        <!-- OCCURRENCE -->
+        <EditText
+            android:id="@+id/occurrence"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Occurrence details"
+            android:textColor="#000"
+            android:autofillHints="none"
+            android:inputType="textMultiLine"
+            android:layout_marginTop="10dp"/>
+
+        <!-- SIGNATURE -->
+        <EditText
+            android:id="@+id/sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Signature"
+            android:textColor="#000"
+            android:inputType="textPersonName"
+            android:layout_marginTop="10dp"/>
+
+        <!-- UPDATE BUTTON -->
+        <Button
+            android:id="@+id/updateBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Record"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#1A73E8"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+</ScrollView>

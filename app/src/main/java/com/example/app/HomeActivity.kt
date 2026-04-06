@@ -104,6 +104,10 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
+        if (!sSign.matches(Regex("^[a-zA-Z ]+$"))) {
+            Toast.makeText(this, "Signature must contain letters only", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val ref = database
 
