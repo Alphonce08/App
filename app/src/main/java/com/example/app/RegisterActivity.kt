@@ -7,6 +7,7 @@ import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+lateinit var progress: ProgressBar
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -31,6 +32,7 @@ class RegisterActivity : AppCompatActivity() {
         edtPass = findViewById(R.id.edtPass)
         edtPass2 = findViewById(R.id.edtPass2)
         Reg = findViewById(R.id.Reg)
+        progress = findViewById(R.id.progressBar)
 
         Reg.setOnClickListener {
 
@@ -39,10 +41,19 @@ class RegisterActivity : AppCompatActivity() {
             val confirmPassword = edtPass2.text.toString().trim()
 
             // Validation
+
+            val gmailPattern = Regex("^[A-Za-z0-9._%+-]+@gmail\\.com$")
+
             if (email.isEmpty()) {
                 edtEmail.error = "Please enter your email"
                 edtEmail.requestFocus()
-                return@setOnClickListener
+
+            } else if (!gmailPattern.matches(email)) {
+                edtEmail.error = "Please enter a valid or email address."
+                edtEmail.requestFocus()
+
+            } else {
+                // Valid Gmail email
             }
 
             if (password.isEmpty()) {
