@@ -1,13 +1,13 @@
 package com.example.app
 
+
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.*
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-lateinit var progress: ProgressBar
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -21,16 +21,13 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_register)
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance()
 
-        // Link UI
         edtEmail = findViewById(R.id.edtEmail)
         edtPass = findViewById(R.id.edtPass)
-        edtPass2 = findViewById(R.id.edtPass2)
+        edtPass2 = findViewById(R.id.edtPass)
         Reg = findViewById(R.id.Reg)
         progress = findViewById(R.id.progressBar)
 
@@ -40,56 +37,46 @@ class RegisterActivity : AppCompatActivity() {
             val password = edtPass.text.toString().trim()
             val confirmPassword = edtPass2.text.toString().trim()
 
-            // Validation
-
             val gmailPattern = Regex("^[A-Za-z0-9._%+-]+@gmail\\.com$")
 
             if (email.isEmpty()) {
                 edtEmail.error = "Please enter your email"
-                edtEmail.requestFocus()
+                return@setOnClickListener
+            }
 
-            } else if (!gmailPattern.matches(email)) {
-                edtEmail.error = "Please enter a valid or email address."
-                edtEmail.requestFocus()
-
-            } else {
-                // Valid Gmail email
+            if (!gmailPattern.matches(email)) {
+                edtEmail.error = "Enter a valid Gmail address"
+                return@setOnClickListener
             }
 
             if (password.isEmpty()) {
-                edtPass.error = "Please enter password"
-                edtPass.requestFocus()
+                edtPass.error = "Enter password"
                 return@setOnClickListener
             }
 
             if (password.length < 6) {
-                edtPass.error = "Password must be at least 6 characters"
-                edtPass.requestFocus()
+                edtPass.error = "Minimum 6 characters"
                 return@setOnClickListener
             }
 
             if (password != confirmPassword) {
                 edtPass2.error = "Passwords do not match"
-                edtPass2.requestFocus()
                 return@setOnClickListener
             }
 
-            // Show loading
-            progress.visibility = ProgressBar.VISIBLE
+            // ✅ Show loader
+            progress.visibility = View.VISIBLE
 
-            // Register user
             mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
 
-                    progress.visibility = ProgressBar.GONE
+                    // ✅ Hide loader
+                    progress.visibility = View.GONE
 
                     if (it.isSuccessful) {
-
                         Toast.makeText(this, "Registered successfully", Toast.LENGTH_SHORT).show()
-
-                        startActivity(Intent(this, HomeActivity::class.java))
+                        startActivity(Intent(this, MainActivity::class.java))
                         finish()
-
                     } else {
                         showMessage("Error", it.exception?.message ?: "Unknown error")
                     }
@@ -97,7 +84,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ Properly placed function
     private fun showMessage(title: String, message: String) {
         AlertDialog.Builder(this)
             .setTitle(title)
