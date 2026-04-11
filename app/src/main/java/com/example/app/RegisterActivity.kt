@@ -1,6 +1,7 @@
 package com.example.app
 
 
+import android.R.attr.name
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -8,16 +9,18 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class RegisterActivity : AppCompatActivity() {
 
     lateinit var edtEmail: EditText
     lateinit var edtPass: EditText
     lateinit var edtPass2: EditText
-    lateinit var Reg: Button
+    lateinit var reg: Button
 
     lateinit var mAuth: FirebaseAuth
     lateinit var progress: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +31,28 @@ class RegisterActivity : AppCompatActivity() {
         edtEmail = findViewById(R.id.edtEmail)
         edtPass = findViewById(R.id.edtPass)
         edtPass2 = findViewById(R.id.edtPass)
-        Reg = findViewById(R.id.Reg)
+        reg = findViewById(R.id.reg)
         progress = findViewById(R.id.progressBar)
 
-        Reg.setOnClickListener {
+
+
+        reg.setOnClickListener {
 
             val email = edtEmail.text.toString().trim()
             val password = edtPass.text.toString().trim()
             val confirmPassword = edtPass2.text.toString().trim()
 
             val gmailPattern = Regex("^[A-Za-z0-9._%+-]+@gmail\\.com$")
+
+            val db = FirebaseDatabase.getInstance().reference
+            val safeEmail = email.replace(".", "_")
+
+            val userMap = mapOf(
+                "email" to email,
+                "name" to name
+            )
+
+            db.child("users").child(safeEmail).setValue(userMap)
 
             if (email.isEmpty()) {
                 edtEmail.error = "Please enter your email"
@@ -80,7 +95,9 @@ class RegisterActivity : AppCompatActivity() {
                     } else {
                         showMessage("Error", it.exception?.message ?: "Unknown error")
                     }
+
                 }
+
         }
     }
 

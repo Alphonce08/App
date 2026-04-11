@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
         txtForgotPassword = findViewById(R.id.txtForgotPassword)
         signup = findViewById(R.id.signup)
 
+        txtForgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgetActivity::class.java))
+        }
+
         // LOGIN BUTTON
         loginBtn.setOnClickListener {
 
