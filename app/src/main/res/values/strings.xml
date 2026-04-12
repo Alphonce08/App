@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App</string>
+    <string name="app_name">OB Book</string>
     <string name="email_address">Email Address</string>
     <string name="email">Email</string>
     <string name="send_code">Send Code</string>

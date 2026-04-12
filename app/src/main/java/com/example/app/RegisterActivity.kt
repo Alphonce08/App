@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class RegisterActivity : AppCompatActivity() {
-
+    lateinit var stname: EditText
     lateinit var edtEmail: EditText
     lateinit var edtPass: EditText
     lateinit var edtPass2: EditText
@@ -27,7 +27,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         mAuth = FirebaseAuth.getInstance()
-
+        stname = findViewById(R.id.stname)
         edtEmail = findViewById(R.id.edtEmail)
         edtPass = findViewById(R.id.edtPass)
         edtPass2 = findViewById(R.id.edtPass)
@@ -38,6 +38,7 @@ class RegisterActivity : AppCompatActivity() {
 
         reg.setOnClickListener {
 
+            val name = stname.text.toString().trim()
             val email = edtEmail.text.toString().trim()
             val password = edtPass.text.toString().trim()
             val confirmPassword = edtPass2.text.toString().trim()

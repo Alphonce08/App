@@ -70,7 +70,8 @@ class ForgetActivity : AppCompatActivity() {
                         db.child("otp").child(safeEmail).setValue(generatedOtp)
 
                         // 🌐 Send OTP via backend email API
-                        val url = "http://YOUR_IP:3000/send-otp" // 🔁 CHANGE THIS
+
+                        val url = "http://10.0.2.2:3000/send-otp"
 
                         val queue = Volley.newRequestQueue(this)
 

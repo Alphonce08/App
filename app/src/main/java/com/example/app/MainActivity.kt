@@ -15,7 +15,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         txtForgotPassword = findViewById(R.id.txtForgotPassword)
         signup = findViewById(R.id.signup)
 
+        // Forgot password
         txtForgotPassword.setOnClickListener {
             startActivity(Intent(this, ForgetActivity::class.java))
         }
@@ -51,55 +51,96 @@ class MainActivity : AppCompatActivity() {
             val email = logEmail.text.toString().trim()
             val password = logPass.text.toString().trim()
 
+            // 1. Empty email
             if (email.isEmpty()) {
                 logEmail.error = "Please enter email"
                 logEmail.requestFocus()
                 return@setOnClickListener
             }
 
+            // 2. Email format check
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                AlertDialog.Builder(this)
+                    .setTitle("Invalid Email")
+                    .setMessage("Please enter a valid email address")
+                    .setPositiveButton("OK", null)
+                    .show()
+
+                logEmail.requestFocus()
+                return@setOnClickListener
+            }
+
+            // 3. Empty password
             if (password.isEmpty()) {
                 logPass.error = "Please enter password"
                 logPass.requestFocus()
                 return@setOnClickListener
             }
 
-            mAuth.signInWithEmailAndPassword(email, password)
+            // 🔥 4. CHECK IF EMAIL EXISTS FIRST
+            mAuth.fetchSignInMethodsForEmail(email)
                 .addOnCompleteListener { task ->
 
                     if (task.isSuccessful) {
 
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, ViewActivity::class.java))
-                        finish()
+                        val result = task.result
+                        val methods = result?.signInMethods
+
+                        if (methods.isNullOrEmpty()) {
+                            // ❌ Email NOT registered
+                            AlertDialog.Builder(this)
+                                .setTitle("Account not found")
+                                .setMessage("This email is not registered. Do you want to create an account?")
+                                .setPositiveButton("Sign Up") { _, _ ->
+                                    startActivity(Intent(this, RegisterActivity::class.java))
+                                }
+                                .setNegativeButton("Cancel", null)
+                                .show()
+                        } else {
+                            // ✅ Email exists → proceed to log
+
+                            mAuth.signInWithEmailAndPassword(email, password)
+                                .addOnCompleteListener { loginTask ->
+
+                                    if (loginTask.isSuccessful) {
+
+                                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                                        startActivity(Intent(this, ViewActivity::class.java))
+                                        finish()
+
+                                    } else {
+
+                                        val exception = loginTask.exception
+
+                                        when (exception) {
+
+                                            is FirebaseAuthInvalidCredentialsException -> {
+                                                AlertDialog.Builder(this)
+                                                    .setTitle("Login Failed")
+                                                    .setMessage("Incorrect password.")
+                                                    .setPositiveButton("OK", null)
+                                                    .show()
+                                            }
+
+                                            else -> {
+                                                AlertDialog.Builder(this)
+                                                    .setTitle("Error")
+                                                    .setMessage("Something went wrong. Try again.")
+                                                    .setPositiveButton("OK", null)
+                                                    .show()
+                                            }
+                                        }
+                                    }
+                                }
+                        }
 
                     } else {
-
-                        val exception = task.exception
-
-                        when (exception) {
-
-                            is FirebaseAuthInvalidUserException -> {
-
-                                // Optional: account not found → suggest signup
-                                AlertDialog.Builder(this)
-                                    .setTitle("Account not found")
-                                    .setMessage("This email is not registered. Do you want to create an account?")
-                                    .setPositiveButton("Sign Up") { _, _ ->
-                                        startActivity(Intent(this, RegisterActivity::class.java))
-                                    }
-                                    .setNegativeButton("Cancel", null)
-                                    .show()
-                            }
-
-                            else -> {
-                                // 🔥 GENERAL ERROR (your request)
-                                AlertDialog.Builder(this)
-                                    .setTitle("Login Failed")
-                                    .setMessage("Wrong email or password. Please try again.")
-                                    .setPositiveButton("OK", null)
-                                    .show()
-                            }
-                        }
+                        // Error checking email
+                        AlertDialog.Builder(this)
+                            .setTitle("Error")
+                            .setMessage("Failed to verify email. Check your internet connection.")
+                            .setPositiveButton("OK", null)
+                            .show()
                     }
                 }
         }
@@ -124,7 +165,6 @@ class MainActivity : AppCompatActivity() {
         val end = start + "Sign up".length
 
         spannable.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
         spannable.setSpan(
             ForegroundColorSpan(Color.BLUE),
             start,
