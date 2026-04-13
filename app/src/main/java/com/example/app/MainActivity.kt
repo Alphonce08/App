@@ -13,8 +13,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,107 +44,95 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ForgetActivity::class.java))
         }
 
-        // LOGIN BUTTON
+        // ================= LOGIN =================
         loginBtn.setOnClickListener {
 
             val email = logEmail.text.toString().trim()
             val password = logPass.text.toString().trim()
 
-            // 1. Empty email
+            val gmailPattern = Regex("^[A-Za-z0-9._%+-]+@gmail\\.com$")
+
+            // 1. Email empty
             if (email.isEmpty()) {
-                logEmail.error = "Please enter email"
-                logEmail.requestFocus()
+                logEmail.error = "Enter email"
                 return@setOnClickListener
             }
 
-            // 2. Email format check
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            // 2. Email format check (Gmail only)
+            if (!gmailPattern.matches(email)) {
                 AlertDialog.Builder(this)
                     .setTitle("Invalid Email")
-                    .setMessage("Please enter a valid email address")
+                    .setMessage("Only Gmail addresses allowed (example@gmail.com)")
                     .setPositiveButton("OK", null)
                     .show()
-
-                logEmail.requestFocus()
                 return@setOnClickListener
             }
 
-            // 3. Empty password
+            // 3. Password empty
             if (password.isEmpty()) {
-                logPass.error = "Please enter password"
-                logPass.requestFocus()
+                logPass.error = "Enter password"
                 return@setOnClickListener
             }
 
-            // 🔥 4. CHECK IF EMAIL EXISTS FIRST
-            mAuth.fetchSignInMethodsForEmail(email)
+            loginBtn.isEnabled = false
+
+            // ================= FIREBASE LOGIN =================
+            mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
+
+                    loginBtn.isEnabled = true
 
                     if (task.isSuccessful) {
 
-                        val result = task.result
-                        val methods = result?.signInMethods
+                        // ✅ REGISTERED USER
+                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
 
-                        if (methods.isNullOrEmpty()) {
-                            // ❌ Email NOT registered
-                            AlertDialog.Builder(this)
-                                .setTitle("Account not found")
-                                .setMessage("This email is not registered. Do you want to create an account?")
-                                .setPositiveButton("Sign Up") { _, _ ->
-                                    startActivity(Intent(this, RegisterActivity::class.java))
-                                }
-                                .setNegativeButton("Cancel", null)
-                                .show()
-                        } else {
-                            // ✅ Email exists → proceed to log
+                        val intent = Intent(this, ViewActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
-                            mAuth.signInWithEmailAndPassword(email, password)
-                                .addOnCompleteListener { loginTask ->
-
-                                    if (loginTask.isSuccessful) {
-
-                                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                                        startActivity(Intent(this, ViewActivity::class.java))
-                                        finish()
-
-                                    } else {
-
-                                        val exception = loginTask.exception
-
-                                        when (exception) {
-
-                                            is FirebaseAuthInvalidCredentialsException -> {
-                                                AlertDialog.Builder(this)
-                                                    .setTitle("Login Failed")
-                                                    .setMessage("Incorrect password.")
-                                                    .setPositiveButton("OK", null)
-                                                    .show()
-                                            }
-
-                                            else -> {
-                                                AlertDialog.Builder(this)
-                                                    .setTitle("Error")
-                                                    .setMessage("Something went wrong. Try again.")
-                                                    .setPositiveButton("OK", null)
-                                                    .show()
-                                            }
-                                        }
-                                    }
-                                }
-                        }
+                        startActivity(intent)
+                        finish()
 
                     } else {
-                        // Error checking email
-                        AlertDialog.Builder(this)
-                            .setTitle("Error")
-                            .setMessage("Failed to verify email. Check your internet connection.")
-                            .setPositiveButton("OK", null)
-                            .show()
+
+                        when (task.exception) {
+
+                            // ❌ USER NOT REGISTERED
+                            is FirebaseAuthInvalidUserException -> {
+                                AlertDialog.Builder(this)
+                                    .setTitle("Access Denied")
+                                    .setMessage("This account is not registered. Please sign up first.")
+                                    .setPositiveButton("Sign Up") { _, _ ->
+                                        startActivity(Intent(this, RegisterActivity::class.java))
+                                    }
+                                    .setNegativeButton("Cancel", null)
+                                    .show()
+                            }
+
+                            // ❌ WRONG PASSWORD
+                            is FirebaseAuthInvalidCredentialsException -> {
+                                AlertDialog.Builder(this)
+                                    .setTitle("Login Failed")
+                                    .setMessage("Incorrect email or password.")
+                                    .setPositiveButton("OK", null)
+                                    .show()
+                            }
+
+                            // ❌ OTHER ERRORS
+                            else -> {
+                                AlertDialog.Builder(this)
+                                    .setTitle("Error")
+                                    .setMessage("Something went wrong. Try again.")
+                                    .setPositiveButton("OK", null)
+                                    .show()
+                            }
+                        }
                     }
                 }
         }
 
-        // SIGNUP CLICKABLE TEXT
+        // ================= SIGNUP TEXT =================
         val text = "Don’t have an account? Sign up"
         val spannable = SpannableString(text)
 
@@ -177,199 +164,3 @@ class MainActivity : AppCompatActivity() {
         signup.highlightColor = Color.TRANSPARENT
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//package com.example.app
-//
-//import android.app.AlertDialog
-//import android.content.Intent
-//import android.os.Bundle
-//import android.view.View
-//import android.widget.*
-//import androidx.appcompat.app.AppCompatActivity
-//import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-//
-//class MainActivity : AppCompatActivity() {
-//
-//    lateinit var logEmail: EditText
-//    lateinit var logPass: EditText
-//    lateinit var loginBtn: Button
-//    lateinit var txtForgotPassword: TextView
-//    lateinit var signup: TextView
-//    lateinit var progressBar: ProgressBar
-//
-//    lateinit var mAuth: FirebaseAuth
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-//
-//        // Firebase
-//        mAuth = FirebaseAuth.getInstance()
-//
-//        // UI
-//        logEmail = findViewById(R.id.logEmail)
-//        logPass = findViewById(R.id.logPass)
-//        loginBtn = findViewById(R.id.loginBtn)
-//        txtForgotPassword = findViewById(R.id.txtForgotPassword)
-//        signup = findViewById(R.id.signup)
-//        progressBar = findViewById(R.id.progressBar)
-//
-//        progressBar.visibility = View.GONE
-//
-//        // Forgot password
-//        txtForgotPassword.setOnClickListener {
-//            startActivity(Intent(this, ForgetActivity::class.java))
-//        }
-//
-//        // LOGIN BUTTON
-//        loginBtn.setOnClickListener {
-//
-//            val email = logEmail.text.toString().trim()
-//            val password = logPass.text.toString().trim()
-//
-//            // 1. Empty email
-//            if (email.isEmpty()) {
-//                logEmail.error = "Email required"
-//                return@setOnClickListener
-//            }
-//
-//            // 2. Valid email format
-//            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//                AlertDialog.Builder(this)
-//                    .setTitle("Invalid Email")
-//                    .setMessage("Enter a valid email address")
-//                    .setPositiveButton("OK", null)
-//                    .show()
-//                return@setOnClickListener
-//            }
-//
-//            // 3. Empty password
-//            if (password.isEmpty()) {
-//                logPass.error = "Password required"
-//                return@setOnClickListener
-//            }
-//
-//            checkEmailAndLogin(email, password)
-//        }
-//
-//        // SIGNUP CLICK
-//        signup.setOnClickListener {
-//            startActivity(Intent(this, RegisterActivity::class.java))
-//        }
-//    }
-//
-//    // ================= CHECK EMAIL =================
-//    private fun checkEmailAndLogin(email: String, password: String) {
-//
-//        progressBar.visibility = View.VISIBLE
-//        loginBtn.isEnabled = false
-//
-//        mAuth.fetchSignInMethodsForEmail(email)
-//            .addOnCompleteListener { task ->
-//
-//                if (!task.isSuccessful) {
-//                    showError("Network error. Try again.")
-//                    return@addOnCompleteListener
-//                }
-//
-//                val methods = task.result?.signInMethods
-//
-//                if (methods.isNullOrEmpty()) {
-//
-//                    progressBar.visibility = View.GONE
-//                    loginBtn.isEnabled = true
-//
-//                    AlertDialog.Builder(this)
-//                        .setTitle("Account not found")
-//                        .setMessage("This email is not registered. Create a new account?")
-//                        .setPositiveButton("Sign Up") { _, _ ->
-//                            startActivity(Intent(this, RegisterActivity::class.java))
-//                        }
-//                        .setNegativeButton("Cancel", null)
-//                        .show()
-//
-//                }
-//                else {
-//                    loginUser(email, password)
-//                }
-//            }
-//    }
-//
-//    // ================= LOGIN =================
-//    private fun loginUser(email: String, password: String) {
-//
-//        mAuth.signInWithEmailAndPassword(email, password)
-//            .addOnCompleteListener { task ->
-//
-//                progressBar.visibility = View.GONE
-//                loginBtn.isEnabled = true
-//
-//                if (task.isSuccessful) {
-//
-//                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-//
-//                    val intent = Intent(this, ViewActivity::class.java)
-//                    intent.flags =
-//                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//
-//                    startActivity(intent)
-//
-//                } else {
-//
-//                    when (task.exception) {
-//
-//                        is FirebaseAuthInvalidCredentialsException -> {
-//                            AlertDialog.Builder(this)
-//                                .setTitle("Login Failed")
-//                                .setMessage("Incorrect password.")
-//                                .setPositiveButton("OK", null)
-//                                .show()
-//                        }
-//
-//                        else -> {
-//                            AlertDialog.Builder(this)
-//                                .setTitle("Error")
-//                                .setMessage(task.exception?.message ?: "Something went wrong")
-//                                .setPositiveButton("OK", null)
-//                                .show()
-//                        }
-//                    }
-//                }
-//            }
-//    }
-//
-//    // ================= ERROR HELPER =================
-//    private fun showError(message: String) {
-//        progressBar.visibility = View.GONE
-//        loginBtn.isEnabled = true
-//
-//        AlertDialog.Builder(this)
-//            .setTitle("Error")
-//            .setMessage(message)
-//            .setPositiveButton("OK", null)
-//            .show()
-//    }
-//
-//    // ================= AUTO LOGIN =================
-//    override fun onStart() {
-//        super.onStart()
-//
-//        if (mAuth.currentUser != null) {
-//            startActivity(Intent(this, ViewActivity::class.java))
-//            finish()
-//        }
-//    }
-//}
