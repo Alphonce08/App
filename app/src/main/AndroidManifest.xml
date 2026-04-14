@@ -6,6 +6,8 @@
 
     <application
         android:allowBackup="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -14,33 +16,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App"
         android:windowSoftInputMode="adjustResize">
-        <activity
-            android:name=".OtpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ForgetActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
+
+        <activity android:name=".OtpActivity" android:exported="false" />
+        <activity android:name=".EditActivity" android:exported="false" />
+        <activity android:name=".ViewActivity" android:exported="false" />
+        <activity android:name=".ForgetActivity" android:exported="false" />
+        <activity android:name=".RegisterActivity" android:exported="false" />
+        <activity android:name=".HomeActivity" android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
