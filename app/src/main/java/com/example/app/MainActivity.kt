@@ -17,19 +17,18 @@ import com.google.firebase.auth.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var logEmail: EditText
-    lateinit var logPass: EditText
-    lateinit var loginBtn: Button
-    lateinit var txtForgotPassword: TextView
-    lateinit var signup: TextView
+    private lateinit var logEmail: EditText
+    private lateinit var logPass: EditText
+    private lateinit var loginBtn: Button
+    private lateinit var txtForgotPassword: TextView
+    private lateinit var signup: TextView
 
-    lateinit var mAuth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Firebase init
         mAuth = FirebaseAuth.getInstance()
 
         // UI
@@ -44,31 +43,26 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ForgetActivity::class.java))
         }
 
+        // Signup text
+        setupSignupText()
+
         // ================= LOGIN =================
         loginBtn.setOnClickListener {
 
             val email = logEmail.text.toString().trim()
             val password = logPass.text.toString().trim()
 
-            val gmailPattern = Regex("^[A-Za-z0-9._%+-]+@gmail\\.com$")
-
-            // 1. Email empty
+            // 🔍 VALIDATION
             if (email.isEmpty()) {
                 logEmail.error = "Enter email"
                 return@setOnClickListener
             }
 
-            // 2. Email format check (Gmail only)
-            if (!gmailPattern.matches(email)) {
-                AlertDialog.Builder(this)
-                    .setTitle("Invalid Email")
-                    .setMessage("Only Gmail addresses allowed (example@gmail.com)")
-                    .setPositiveButton("OK", null)
-                    .show()
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                showDialog("Invalid Email", "Enter a valid email address")
                 return@setOnClickListener
             }
 
-            // 3. Password empty
             if (password.isEmpty()) {
                 logPass.error = "Enter password"
                 return@setOnClickListener
@@ -76,63 +70,73 @@ class MainActivity : AppCompatActivity() {
 
             loginBtn.isEnabled = false
 
-            // ================= FIREBASE LOGIN =================
-            mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
+            // 🔐 FIREBASE LOGIN (NO PRE-CHECK)
+            val emailClean = email.trim()
+
+// ================= STEP 1: CHECK IF USER EXISTS =================
+            mAuth.fetchSignInMethodsForEmail(emailClean)
+                .addOnCompleteListener { checkTask ->
 
                     loginBtn.isEnabled = true
 
-                    if (task.isSuccessful) {
+                    if (!checkTask.isSuccessful) {
+                        Toast.makeText(this, "Network error", Toast.LENGTH_LONG).show()
+                        return@addOnCompleteListener
+                    }
 
-                        // ✅ REGISTERED USER
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                    val methods = checkTask.result?.signInMethods
 
-                        val intent = Intent(this, ViewActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    // ❌ ACCOUNT NOT REGISTERED
+                    if (methods.isNullOrEmpty()) {
+                        Toast.makeText(this, "Account not registered", Toast.LENGTH_LONG).show()
+                        return@addOnCompleteListener
+                    }
 
-                        startActivity(intent)
-                        finish()
+                    // ================= STEP 2: LOGIN =================
+                    mAuth.signInWithEmailAndPassword(emailClean, password)
+                        .addOnCompleteListener { task ->
 
-                    } else {
+                            if (task.isSuccessful) {
 
-                        when (task.exception) {
+                                val user = mAuth.currentUser
 
-                            // ❌ USER NOT REGISTERED
-                            is FirebaseAuthInvalidUserException -> {
-                                AlertDialog.Builder(this)
-                                    .setTitle("Access Denied")
-                                    .setMessage("This account is not registered. Please sign up first.")
-                                    .setPositiveButton("Sign Up") { _, _ ->
-                                        startActivity(Intent(this, RegisterActivity::class.java))
-                                    }
-                                    .setNegativeButton("Cancel", null)
-                                    .show()
-                            }
+                                if (user != null && user.isEmailVerified) {
 
-                            // ❌ WRONG PASSWORD
-                            is FirebaseAuthInvalidCredentialsException -> {
-                                AlertDialog.Builder(this)
-                                    .setTitle("Login Failed")
-                                    .setMessage("Incorrect email or password.")
-                                    .setPositiveButton("OK", null)
-                                    .show()
-                            }
+                                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
 
-                            // ❌ OTHER ERRORS
-                            else -> {
-                                AlertDialog.Builder(this)
-                                    .setTitle("Error")
-                                    .setMessage("Something went wrong. Try again.")
-                                    .setPositiveButton("OK", null)
-                                    .show()
+                                    startActivity(Intent(this, ViewActivity::class.java))
+                                    finish()
+
+                                } else {
+
+                                    Toast.makeText(this, "Email is not verified", Toast.LENGTH_LONG).show()
+                                    mAuth.signOut()
+                                }
+
+                            } else {
+
+                                // ❌ WRONG PASSWORD (NOW GUARANTEED)
+                                Toast.makeText(this, "Incorrect password", Toast.LENGTH_LONG).show()
                             }
                         }
-                    }
                 }
         }
+    }
 
-        // ================= SIGNUP TEXT =================
+    // ================= AUTO LOGIN =================
+    override fun onStart() {
+        super.onStart()
+
+        val user = mAuth.currentUser
+
+        if (user != null && user.isEmailVerified) {
+            startActivity(Intent(this, ViewActivity::class.java))
+            finish()
+        }
+    }
+
+    // ================= SIGNUP TEXT =================
+    private fun setupSignupText() {
         val text = "Don’t have an account? Sign up"
         val spannable = SpannableString(text)
 
@@ -162,5 +166,14 @@ class MainActivity : AppCompatActivity() {
         signup.text = spannable
         signup.movementMethod = LinkMovementMethod.getInstance()
         signup.highlightColor = Color.TRANSPARENT
+    }
+
+    // ================= DIALOG =================
+    private fun showDialog(title: String, message: String) {
+        AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .show()
     }
 }
