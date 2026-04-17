@@ -87,10 +87,10 @@ class MainActivity : AppCompatActivity() {
                     val methods = checkTask.result?.signInMethods
 
                     // ❌ ACCOUNT NOT REGISTERED
-                    if (methods.isNullOrEmpty()) {
-                        Toast.makeText(this, "Account not registered", Toast.LENGTH_LONG).show()
-                        return@addOnCompleteListener
-                    }
+//                    if (methods.isNullOrEmpty()) {
+//                        Toast.makeText(this, "Account not registered", Toast.LENGTH_LONG).show()
+//                        return@addOnCompleteListener
+//                    }
 
                     // ================= STEP 2: LOGIN =================
                     mAuth.signInWithEmailAndPassword(emailClean, password)
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                             } else {
 
                                 // ❌ WRONG PASSWORD (NOW GUARANTEED)
-                                Toast.makeText(this, "Incorrect password", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_LONG).show()
                             }
                         }
                 }

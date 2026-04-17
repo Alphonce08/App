@@ -92,9 +92,10 @@
 
 
         <!-- Occurrence -->
+        <!-- Occurrence -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="300dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textColorHint="@color/black"
             android:hint="Occurrence details"
             android:layout_marginTop="16dp"
@@ -107,9 +108,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:textColor="@android:color/black"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine"
+                android:gravity="top|start"/>
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <!-- Signature -->
         <com.google.android.material.textfield.TextInputLayout
