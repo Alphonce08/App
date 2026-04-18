@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         val user = mAuth.currentUser
 
         if (user != null && user.isEmailVerified) {
-            startActivity(Intent(this, ViewActivity::class.java))
+            startActivity(Intent(this, OmActivity::class.java))
             finish()
         }
     }

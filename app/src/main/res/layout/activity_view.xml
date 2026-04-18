@@ -7,14 +7,14 @@
 
     <Button
         android:id="@+id/newOB"
-        android:text="Create New OB"
-        android:textSize="20sp"
+        android:text="+"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:layout_marginStart="180dp"
+        android:layout_marginStart="305dp"
         android:layout_marginTop="50dp"
         android:backgroundTint="#1A73E8"
-        android:layout_width="match_parent"
+        android:layout_width="60dp"
         android:layout_height="50dp"/>
 
     <ListView
