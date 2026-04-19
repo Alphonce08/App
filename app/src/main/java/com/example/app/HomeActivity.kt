@@ -72,7 +72,7 @@ class HomeActivity : AppCompatActivity() {
 
         // Long press → View page
         saveBtn.setOnLongClickListener {
-            startActivity(Intent(this, ViewActivity::class.java))
+            startActivity(Intent(this, OmActivity::class.java))
             true
         }
     }

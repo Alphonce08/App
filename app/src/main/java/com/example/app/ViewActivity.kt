@@ -16,7 +16,6 @@ class ViewActivity : AppCompatActivity() {
     private lateinit var adapter: CustomAdapter
     private lateinit var ref: DatabaseReference
 
-    lateinit var btnLogout: Button
     lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +26,6 @@ class ViewActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         // UI
-        btnLogout = findViewById(R.id.btnLogout)
         listView = findViewById(R.id.listView)
         newOB = findViewById(R.id.newOB)
 
@@ -36,25 +34,6 @@ class ViewActivity : AppCompatActivity() {
         // Firebase DB reference
         ref = FirebaseDatabase.getInstance().getReference("occurrences")
 
-        // 🚪 LOGOUT
-        btnLogout.setOnClickListener {
-
-            AlertDialog.Builder(this)
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Yes") { _, _ ->
-
-                    mAuth.signOut()
-
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.flags =
-                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-                    startActivity(intent)
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
-        }
 
         // Load data
         loadData()

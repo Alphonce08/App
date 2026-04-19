@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeMenu"
+        android:title="Home" />
+    <item
+        android:id="@+id/newMenu"
+        android:title="New" />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
+</menu>
