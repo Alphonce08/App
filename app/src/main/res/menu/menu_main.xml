@@ -1,9 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profile"
+        android:title="Profile" />
     <item
         android:id="@+id/homeMenu"
         android:title="Home" />
     <item
-        android:id="@+id/newMenu"
+        android:id="@+id/addMenu"
         android:title="New" />
     <item
         android:id="@+id/logout"

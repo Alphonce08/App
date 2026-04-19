@@ -29,26 +29,12 @@
                 android:layout_marginStart="20dp" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Occurence Book"
-                android:textSize="30sp"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/black"
-                android:layout_marginStart="20dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal"
-            android:gravity="center">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:src="@drawable/logo_ob" />
         </LinearLayout>
+
 
     </LinearLayout>
     <!-- Bottom Row -->
@@ -114,7 +100,7 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/addSettings"
+                android:id="@+id/settingsMenu"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_settings"

@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".OmActivity"
             android:exported="false" />
         <activity
