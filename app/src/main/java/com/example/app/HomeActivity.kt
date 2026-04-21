@@ -13,7 +13,6 @@ import java.util.Calendar
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var date: EditText
-    private lateinit var obNumber: EditText
     private lateinit var time: EditText
     private lateinit var occurrence: EditText
     private lateinit var sign: EditText
@@ -26,63 +25,77 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
 
-        val calendar = Calendar.getInstance()
-
-        // Link UI
+        // 🔗 Link UI
         date = findViewById(R.id.date)
         time = findViewById(R.id.time)
-        obNumber = findViewById(R.id.obNumber)
         occurrence = findViewById(R.id.occurrence)
         sign = findViewById(R.id.sign)
         saveBtn = findViewById(R.id.saveBtn)
 
+        val calendar = Calendar.getInstance()
+
+        // ✅ Default DATE
+        date.setText(String.format(
+            "%02d/%02d/%04d",
+            calendar.get(Calendar.DAY_OF_MONTH),
+            calendar.get(Calendar.MONTH) + 1,
+            calendar.get(Calendar.YEAR)
+        ))
+
+        // ✅ Default TIME
+        time.setText(String.format(
+            "%02d:%02d",
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE)
+        ))
+
         // 📅 DATE PICKER
         date.setOnClickListener {
-            val datePicker = DatePickerDialog(this, { _, y, m, d ->
-                val formattedDate = String.format("%02d/%02d/%02d", d, m + 1, y % 100)
-                date.setText(formattedDate)
-            },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            )
-            datePicker.show()
+            val cal = Calendar.getInstance()
+
+            DatePickerDialog(this,
+                { _, year, month, day ->
+                    date.setText(String.format("%02d/%02d/%04d", day, month + 1, year))
+                },
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
-        // ⏰ TIME PICKER (24H)
+        // ⏰ TIME PICKER
         time.setOnClickListener {
-            val timePicker = TimePickerDialog(this, { _, h, m ->
-                val formattedTime = String.format("%02d:%02d", h, m)
-                time.setText(formattedTime)
-            },
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
+            val cal = Calendar.getInstance()
+
+            TimePickerDialog(this,
+                { _, hour, minute ->
+                    time.setText(String.format("%02d:%02d", hour, minute))
+                },
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
                 true
-            )
-            timePicker.show()
+            ).show()
         }
 
-        // Firebase
+        // 🔥 Firebase
         database = FirebaseDatabase.getInstance().getReference("occurrences")
 
-        // Save button
         saveBtn.setOnClickListener {
             saveData()
         }
 
-        // Long press → View page
         saveBtn.setOnLongClickListener {
-            startActivity(Intent(this, OmActivity::class.java))
+            startActivity(Intent(this, ViewActivity::class.java))
             true
         }
     }
 
     private fun saveData() {
 
-        val sDate = date.text.toString()
-        val sTime = time.text.toString()
-        val sOcc = occurrence.text.toString()
-        val sSign = sign.text.toString()
+        val sDate = date.text.toString().trim()
+        val sTime = time.text.toString().trim()
+        val sOcc = occurrence.text.toString().trim()
+        val sSign = sign.text.toString().trim()
 
         // ✅ Validation
         if (sDate.isEmpty() || sTime.isEmpty() || sOcc.isEmpty() || sSign.isEmpty()) {
@@ -101,9 +114,8 @@ class HomeActivity : AppCompatActivity() {
             return
         }
 
-        val ref = database
-
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+        // 🔢 Generate OB (hidden from UI)
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -113,28 +125,29 @@ class HomeActivity : AppCompatActivity() {
                 val formattedDate = parts[0] + parts[1] + parts[2]
                 val generatedOB = "$entryNumber/$formattedDate"
 
-                val id = ref.push().key!!
+                val id = database.push().key!!
 
                 val data = Occurrence(
                     date = sDate,
                     time = sTime,
-                    obNumber = generatedOB,
+                    obNumber = generatedOB, // ✅ saved but NOT shown
                     occurence = sOcc,
                     sign = sSign,
                     rec_id = id
                 )
 
-                ref.child(id).setValue(data)
+                database.child(id).setValue(data)
                     .addOnSuccessListener {
 
-                        Toast.makeText(this@HomeActivity, "Saved successfully", Toast.LENGTH_SHORT).show()
+                        // ✅ Show reference instead of field
+                        Toast.makeText(
+                            this@HomeActivity,
+                            "Saved. Ref: $generatedOB",
+                            Toast.LENGTH_LONG
+                        ).show()
 
-                        // ✅ Show OB BEFORE clearing
-                        obNumber.setText(generatedOB)
+                        clearFields()
 
-                        clearFieldsExceptOB()
-
-                        // ✅ Navigate ONCE
                         startActivity(Intent(this@HomeActivity, ViewActivity::class.java))
                     }
                     .addOnFailureListener {
@@ -148,10 +161,20 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    // ✅ Clear everything EXCEPT OB
-    private fun clearFieldsExceptOB() {
-        date.text.clear()
-        time.text.clear()
+    // 🧹 Reset form
+    private fun clearFields() {
+
+        val cal = Calendar.getInstance()
+
+        date.setText(String.format("%02d/%02d/%04d",
+            cal.get(Calendar.DAY_OF_MONTH),
+            cal.get(Calendar.MONTH) + 1,
+            cal.get(Calendar.YEAR)))
+
+        time.setText(String.format("%02d:%02d",
+            cal.get(Calendar.HOUR_OF_DAY),
+            cal.get(Calendar.MINUTE)))
+
         occurrence.text.clear()
         sign.text.clear()
     }

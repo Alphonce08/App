@@ -31,7 +31,6 @@ class SettingsActivity : AppCompatActivity() {
 
     // 🔗 Bind Views
     private fun initViews() {
-        settingsMenu = findViewById(R.id.settingsMenu)
         txtChangeEmail = findViewById(R.id.cardChangeEmail)
         txtChangePassword = findViewById(R.id.cardChangePassword)
     }

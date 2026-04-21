@@ -11,5 +11,9 @@
     <string name="change_email">Change Email</string>
     <string name="change_password">Change Password</string>
     <string name="logout">Logout</string>
+    <string name="desc_menu">Menu</string>
+    <string name="desc_home">Home</string>
+    <string name="desc_add">Add</string>
+    <string name="desc_settings">Settings</string>
 
 </resources>

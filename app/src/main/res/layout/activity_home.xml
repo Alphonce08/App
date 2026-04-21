@@ -69,25 +69,6 @@
 
 
         <!-- OB Number -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/black"
-            android:hint="OB Number"
-            android:layout_marginTop="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="@android:color/black"
-            app:hintTextColor="@android:color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/obNumber"
-                android:focusable="false"
-                android:clickable="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:inputType="number|phone"/>
-        </com.google.android.material.textfield.TextInputLayout>
 
 
 
