@@ -10,8 +10,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="30dp"
         android:gravity="center_horizontal">
+
+        <include layout="@layout/activity_header_logo"/>
+
 
         <TextView
             android:layout_marginStart="30dp"

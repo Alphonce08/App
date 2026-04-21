@@ -5,6 +5,9 @@
     android:padding="10dp"
     android:background="#FFFFFF">
 
+    <include layout="@layout/activity_header_logo"/>
+
+
     <Button
         android:id="@+id/newOB"
         android:text="+"

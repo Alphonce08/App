@@ -18,6 +18,9 @@
             android:layout_height="wrap_content"
             android:visibility="gone"/>
 
+        <include layout="@layout/activity_header_logo"/>
+
+
         <!-- Title -->
         <TextView
             android:layout_width="wrap_content"

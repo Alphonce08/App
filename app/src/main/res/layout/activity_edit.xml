@@ -9,6 +9,10 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+
+        <include layout="@layout/activity_header_logo"/>
+
+
         <!-- TITLE -->
         <TextView
             android:layout_marginTop="80dp"

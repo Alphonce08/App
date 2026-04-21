@@ -12,6 +12,9 @@
         android:layout_marginEnd="10dp"
         android:padding="16dp">
 
+        <include layout="@layout/activity_header_logo"/>
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -8,6 +8,9 @@
     android:layout_height="match_parent"
     tools:context=".OtpActivity">
 
+    <include layout="@layout/activity_header_logo"/>
+
+
     <TextView
         android:id="@+id/otpcode"
         android:text="@string/otp_code"
@@ -17,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="80dp"/>
 
     <EditText
         android:id="@+id/edtOtp"
