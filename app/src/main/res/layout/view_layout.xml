@@ -6,7 +6,6 @@
     android:background="#FFFFFF"
     android:layout_margin="5dp">
 
-    <include layout="@layout/activity_header_logo"/>
 
 
     <ImageView

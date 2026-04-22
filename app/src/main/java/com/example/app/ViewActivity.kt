@@ -10,7 +10,7 @@ import com.google.firebase.database.*
 
 class ViewActivity : AppCompatActivity() {
 
-    private lateinit var newOB: Button
+    private lateinit var newOB: ImageView
     private lateinit var listView: ListView
     private lateinit var dataList: ArrayList<Occurrence>
     private lateinit var adapter: CustomAdapter

@@ -5,20 +5,31 @@
     android:padding="10dp"
     android:background="#FFFFFF">
 
+    <ImageView
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="0dp"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_back"
+        android:scaleType="fitCenter"
+        android:contentDescription="Logo"/>
+
+
     <include layout="@layout/activity_header_logo"/>
 
 
-    <Button
+
+    <ImageView
         android:id="@+id/newOB"
-        android:text="+"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="305dp"
+        android:layout_marginTop="10dp"
         android:textSize="27sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_marginStart="305dp"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="#454545 "
-        android:layout_width="60dp"
-        android:layout_height="50dp"/>
+        android:textColor="@android:color/white"
+        android:backgroundTint="@null"
+        android:src="@drawable/ic_add"/>
 
     <ListView
         android:id="@+id/listView"

@@ -76,9 +76,8 @@
 
 
         <!-- Occurrence -->
-        <!-- Occurrence -->
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:textColorHint="@color/black"
             android:hint="Occurrence details"
@@ -95,6 +94,27 @@
                 android:inputType="textMultiLine"
                 android:gravity="top|start"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/statusGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <RadioButton
+                android:id="@+id/rbComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Complete"/>
+
+            <RadioButton
+                android:id="@+id/rbPending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending"/>
+        </RadioGroup>
+
 
         <!-- Signature -->
         <com.google.android.material.textfield.TextInputLayout

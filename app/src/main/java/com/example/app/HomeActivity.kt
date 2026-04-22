@@ -96,6 +96,8 @@ class HomeActivity : AppCompatActivity() {
         val sTime = time.text.toString().trim()
         val sOcc = occurrence.text.toString().trim()
         val sSign = sign.text.toString().trim()
+        val statusGroup = findViewById<RadioGroup>(R.id.statusGroup)
+
 
         // ✅ Validation
         if (sDate.isEmpty() || sTime.isEmpty() || sOcc.isEmpty() || sSign.isEmpty()) {
@@ -112,6 +114,17 @@ class HomeActivity : AppCompatActivity() {
         if (parts.size < 3) {
             Toast.makeText(this, "Invalid date format", Toast.LENGTH_SHORT).show()
             return
+        }
+
+        statusGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.rbComplete -> {
+                    Toast.makeText(this, "Complete Selected", Toast.LENGTH_SHORT).show()
+                }
+                R.id.rbPending -> {
+                    Toast.makeText(this, "Pending Selected", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         // 🔢 Generate OB (hidden from UI)

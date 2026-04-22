@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,7 +16,7 @@ class OmActivity : AppCompatActivity() {
 
     private lateinit var menuline: ImageView
     private lateinit var addMenu: ImageView
-    private lateinit var settingsMenu: ImageView
+    private lateinit var newMenu: ImageView
     private lateinit var homeMenu: ImageView
     private lateinit var mAuth: FirebaseAuth
 
@@ -36,7 +37,7 @@ class OmActivity : AppCompatActivity() {
         menuline = findViewById(R.id.menuline)
         homeMenu = findViewById(R.id.homeMenu)
         addMenu = findViewById(R.id.addMenu)
-        settingsMenu = findViewById(R.id.settingsMenu)
+        newMenu = findViewById(R.id.newMenu)
     }
 
     // 🔑 Firebase Init
@@ -52,6 +53,9 @@ class OmActivity : AppCompatActivity() {
         }
 
         addMenu.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+        newMenu.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
         }
 
