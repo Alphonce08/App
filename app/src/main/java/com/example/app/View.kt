@@ -6,5 +6,7 @@ data class Occurrence(
     var time: String? = "",
     var obNumber: String? = "",
     var occurence: String? = "",
-    var sign: String? = ""
+    var sign: String? = "",
+    val status: String = "pending" // ✅ ADD THIS
+
 )

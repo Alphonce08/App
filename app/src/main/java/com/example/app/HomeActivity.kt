@@ -17,6 +17,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var occurrence: EditText
     private lateinit var sign: EditText
     private lateinit var saveBtn: Button
+    private lateinit var statusGroup: RadioGroup
 
     private lateinit var database: DatabaseReference
 
@@ -25,16 +26,32 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
 
-        // 🔗 Link UI
+        initViews()
+        initFirebase()
+        setupDateTimePickers()
+        setupSaveButton()
+    }
+
+    // 🔗 Bind Views
+    private fun initViews() {
         date = findViewById(R.id.date)
         time = findViewById(R.id.time)
         occurrence = findViewById(R.id.occurrence)
         sign = findViewById(R.id.sign)
         saveBtn = findViewById(R.id.saveBtn)
+        statusGroup = findViewById(R.id.statusGroup)
+    }
+
+    // 🔥 Firebase
+    private fun initFirebase() {
+        database = FirebaseDatabase.getInstance().getReference("occurrences")
+    }
+
+    // 📅 DATE & TIME
+    private fun setupDateTimePickers() {
 
         val calendar = Calendar.getInstance()
 
-        // ✅ Default DATE
         date.setText(String.format(
             "%02d/%02d/%04d",
             calendar.get(Calendar.DAY_OF_MONTH),
@@ -42,14 +59,12 @@ class HomeActivity : AppCompatActivity() {
             calendar.get(Calendar.YEAR)
         ))
 
-        // ✅ Default TIME
         time.setText(String.format(
             "%02d:%02d",
             calendar.get(Calendar.HOUR_OF_DAY),
             calendar.get(Calendar.MINUTE)
         ))
 
-        // 📅 DATE PICKER
         date.setOnClickListener {
             val cal = Calendar.getInstance()
 
@@ -63,7 +78,6 @@ class HomeActivity : AppCompatActivity() {
             ).show()
         }
 
-        // ⏰ TIME PICKER
         time.setOnClickListener {
             val cal = Calendar.getInstance()
 
@@ -76,9 +90,10 @@ class HomeActivity : AppCompatActivity() {
                 true
             ).show()
         }
+    }
 
-        // 🔥 Firebase
-        database = FirebaseDatabase.getInstance().getReference("occurrences")
+    // 💾 SAVE BUTTON
+    private fun setupSaveButton() {
 
         saveBtn.setOnClickListener {
             saveData()
@@ -90,14 +105,13 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    // 💾 SAVE DATA
     private fun saveData() {
 
         val sDate = date.text.toString().trim()
         val sTime = time.text.toString().trim()
         val sOcc = occurrence.text.toString().trim()
         val sSign = sign.text.toString().trim()
-        val statusGroup = findViewById<RadioGroup>(R.id.statusGroup)
-
 
         // ✅ Validation
         if (sDate.isEmpty() || sTime.isEmpty() || sOcc.isEmpty() || sSign.isEmpty()) {
@@ -116,18 +130,13 @@ class HomeActivity : AppCompatActivity() {
             return
         }
 
-        statusGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.rbComplete -> {
-                    Toast.makeText(this, "Complete Selected", Toast.LENGTH_SHORT).show()
-                }
-                R.id.rbPending -> {
-                    Toast.makeText(this, "Pending Selected", Toast.LENGTH_SHORT).show()
-                }
-            }
+        // ✅ GET STATUS PROPERLY
+        val selectedStatus = when (statusGroup.checkedRadioButtonId) {
+            R.id.rbComplete -> "complete"
+            R.id.rbPending -> "pending"
+            else -> "pending"
         }
 
-        // 🔢 Generate OB (hidden from UI)
         database.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -143,16 +152,16 @@ class HomeActivity : AppCompatActivity() {
                 val data = Occurrence(
                     date = sDate,
                     time = sTime,
-                    obNumber = generatedOB, // ✅ saved but NOT shown
+                    obNumber = generatedOB,
                     occurence = sOcc,
                     sign = sSign,
-                    rec_id = id
+                    rec_id = id,
+                    status = selectedStatus // ✅ IMPORTANT
                 )
 
                 database.child(id).setValue(data)
                     .addOnSuccessListener {
 
-                        // ✅ Show reference instead of field
                         Toast.makeText(
                             this@HomeActivity,
                             "Saved. Ref: $generatedOB",
@@ -164,31 +173,44 @@ class HomeActivity : AppCompatActivity() {
                         startActivity(Intent(this@HomeActivity, ViewActivity::class.java))
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this@HomeActivity, "Failed: ${it.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@HomeActivity,
+                            "Failed: ${it.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@HomeActivity, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@HomeActivity,
+                    "Error: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
 
-    // 🧹 Reset form
+    // 🧹 CLEAR FORM
     private fun clearFields() {
 
         val cal = Calendar.getInstance()
 
-        date.setText(String.format("%02d/%02d/%04d",
+        date.setText(String.format(
+            "%02d/%02d/%04d",
             cal.get(Calendar.DAY_OF_MONTH),
             cal.get(Calendar.MONTH) + 1,
-            cal.get(Calendar.YEAR)))
+            cal.get(Calendar.YEAR)
+        ))
 
-        time.setText(String.format("%02d:%02d",
+        time.setText(String.format(
+            "%02d:%02d",
             cal.get(Calendar.HOUR_OF_DAY),
-            cal.get(Calendar.MINUTE)))
+            cal.get(Calendar.MINUTE)
+        ))
 
         occurrence.text.clear()
         sign.text.clear()
+        statusGroup.clearCheck()
     }
 }

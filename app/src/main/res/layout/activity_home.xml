@@ -71,9 +71,6 @@
 
 
 
-        <!-- OB Number -->
-
-
 
         <!-- Occurrence -->
         <com.google.android.material.textfield.TextInputLayout
@@ -104,12 +101,14 @@
 
             <RadioButton
                 android:id="@+id/rbComplete"
+                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Complete"/>
 
             <RadioButton
                 android:id="@+id/rbPending"
+                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pending"/>

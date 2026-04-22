@@ -1,18 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="10dp"
     android:background="#FFFFFF">
 
     <ImageView
+        android:id="@+id/backBtn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginTop="40dp"
-        android:layout_marginStart="0dp"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
         android:src="@drawable/ic_back"
+        app:tint="@android:color/black"
         android:scaleType="fitCenter"
-        android:contentDescription="Logo"/>
+        android:contentDescription="Back"/>
 
 
     <include layout="@layout/activity_header_logo"/>
