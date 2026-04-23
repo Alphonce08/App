@@ -1,54 +1,48 @@
 package com.example.app
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.ImageView
+import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class ViewActivity : AppCompatActivity() {
 
-    private lateinit var newOB: ImageView
     private lateinit var listView: ListView
+    private lateinit var newOB: ImageView
+
     private lateinit var dataList: ArrayList<Occurrence>
     private lateinit var adapter: CustomAdapter
     private lateinit var ref: DatabaseReference
 
-    lateinit var mAuth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view)
 
-        // Firebase
         mAuth = FirebaseAuth.getInstance()
+        ref = FirebaseDatabase.getInstance().getReference("occurrences")
 
-        // UI
         listView = findViewById(R.id.listView)
         newOB = findViewById(R.id.newOB)
 
         dataList = ArrayList()
 
-        // Firebase DB reference
-        ref = FirebaseDatabase.getInstance().getReference("occurrences")
-
-
-        // Load data
         loadData()
 
-        // Navigate to HomeActivity
         newOB.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
         }
     }
 
-    // 🔒 PROTECT ACTIVITY (must be OUTSIDE onCreate)
     override fun onStart() {
         super.onStart()
 
-        if (FirebaseAuth.getInstance().currentUser == null) {
+        if (mAuth.currentUser == null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -56,8 +50,9 @@ class ViewActivity : AppCompatActivity() {
 
     private fun loadData() {
 
-        ref.addValueEventListener(object : ValueEventListener {
+        val filter = intent.getStringExtra("filter")?.lowercase()
 
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 dataList.clear()
@@ -67,8 +62,14 @@ class ViewActivity : AppCompatActivity() {
                     val item = snap.getValue(Occurrence::class.java)
 
                     if (item != null) {
-                        item.rec_id = snap.key
-                        dataList.add(item)
+
+                        val status = item.status?.lowercase() ?: "pending"
+
+                        // ✅ FILTER LOGIC HERE
+                        if (filter == null || filter == "all" || status == filter) {
+                            item.rec_id = snap.key
+                            dataList.add(item)
+                        }
                     }
                 }
 
@@ -88,8 +89,3 @@ class ViewActivity : AppCompatActivity() {
         })
     }
 }
-
-
-
-
-
