@@ -23,8 +23,7 @@ class OmActivity : AppCompatActivity() {
     private lateinit var completeReport: ImageView
     private lateinit var mAuth: FirebaseAuth
 
-    private lateinit var txtPendingCount: TextView
-    private lateinit var txtCompleteCount: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +46,7 @@ class OmActivity : AppCompatActivity() {
         pendingReport = findViewById(R.id.pendingReport)
         completeReport = findViewById(R.id.completeReport)
 
-        txtPendingCount = findViewById(R.id.txtPendingCount)
-        txtCompleteCount = findViewById(R.id.txtCompleteCount)
+
     }
 
     // 🔑 Firebase Init
@@ -59,7 +57,7 @@ class OmActivity : AppCompatActivity() {
     // 📊 Load Report Counts
     private fun loadReportCounts() {
 
-        val dbRef = FirebaseDatabase.getInstance().getReference("Reports")
+        val dbRef = FirebaseDatabase.getInstance().getReference("occurrences") // ⚠️ MUST MATCH HomeActivity
 
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -68,17 +66,18 @@ class OmActivity : AppCompatActivity() {
                 var complete = 0
 
                 for (data in snapshot.children) {
-                    val status = data.child("status").getValue(String::class.java)
 
-                    if (status == "pending") {
-                        pending++
-                    } else if (status == "complete") {
-                        complete++
+                    val status = data.child("status")
+                        .getValue(String::class.java)
+                        ?.lowercase() ?: "pending" // ✅ safe default
+
+                    when (status) {
+                        "pending" -> pending++
+                        "complete" -> complete++
                     }
                 }
 
-                txtPendingCount.text = pending.toString()
-                txtCompleteCount.text = complete.toString()
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -96,6 +95,17 @@ class OmActivity : AppCompatActivity() {
 
         viewReport.setOnClickListener {
             startActivity(Intent(this, ViewActivity::class.java))
+        }
+        pendingReport.setOnClickListener {
+            val intent = Intent(this, ViewActivity::class.java)
+            intent.putExtra("filter", "pending")
+            startActivity(intent)
+        }
+
+        completeReport.setOnClickListener {
+            val intent = Intent(this, ViewActivity::class.java)
+            intent.putExtra("filter", "complete")
+            startActivity(intent)
         }
     }
 

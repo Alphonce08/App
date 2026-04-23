@@ -7,10 +7,10 @@
     android:orientation="vertical"
     android:background="#F6F6F6">
 
-    <!-- HEADER (LOGO KEPT) -->
+    <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
         android:gravity="center_vertical">
@@ -19,12 +19,12 @@
             android:id="@+id/menuline"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/bic_menu"
+            android:src="@drawable/ic_menu"
             android:contentDescription="Menu"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            app:tint="@android:color/black"/>
 
         <include layout="@layout/activity_header_logo"/>
-
 
     </LinearLayout>
 
@@ -32,7 +32,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#F6F6F6"
         android:layout_weight="1">
 
         <LinearLayout
@@ -57,18 +56,18 @@
                     app:cardElevation="6dp">
 
                     <LinearLayout
-                        android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@android:color/white">
 
                         <ImageView
                             android:id="@+id/newMenu"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/ic_new"
-                            android:contentDescription="New"/>
+                            android:contentDescription="New report"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -76,8 +75,7 @@
                             android:text="New Report"
                             android:textStyle="bold"
                             android:textColor="#000000"
-                            android:layout_marginTop="8dp"
-                            android:textAlignment="center"/>
+                            android:layout_marginTop="8dp"/>
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
@@ -92,24 +90,24 @@
                     app:cardElevation="6dp">
 
                     <LinearLayout
-                        android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@android:color/white">
 
                         <ImageView
                             android:id="@+id/viewReport"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_home"
-                            android:contentDescription="View"/>
+                            android:src="@drawable/ic_view"
+                            android:contentDescription="View report"/>
 
                         <TextView
-                            android:text="View Report"
-                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="View Report"
+                            android:textStyle="bold"
                             android:textColor="#000000"
                             android:layout_marginTop="8dp"/>
                     </LinearLayout>
@@ -124,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!-- PENDING REPORT -->
+                <!-- PENDING -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="140dp"
@@ -134,11 +132,11 @@
                     app:cardElevation="6dp">
 
                     <LinearLayout
-                        android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@android:color/white">
 
                         <ImageView
                             android:id="@+id/pendingReport"
@@ -155,11 +153,12 @@
                             android:textSize="22sp"
                             android:textStyle="bold"
                             android:textColor="#FF5722"
-                            android:layout_marginTop="6dp"/>                    </LinearLayout>
+                            android:layout_marginTop="6dp"/>
+                    </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- COMPLETE REPORT -->
+                <!-- COMPLETE -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="140dp"
@@ -172,14 +171,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@android:color/white">
 
                         <ImageView
                             android:id="@+id/completeReport"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_home"
+                            android:src="@drawable/ic_comp"
                             android:contentDescription="Complete"/>
 
                         <TextView
@@ -190,7 +189,8 @@
                             android:textSize="22sp"
                             android:textStyle="bold"
                             android:textColor="#4CAF50"
-                            android:layout_marginTop="6dp"/>                    </LinearLayout>
+                            android:layout_marginTop="6dp"/>
+                    </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -199,6 +199,5 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 </LinearLayout>

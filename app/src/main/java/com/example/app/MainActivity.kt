@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
                                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
 
-                                    startActivity(Intent(this, ViewActivity::class.java))
+                                    startActivity(Intent(this, OmActivity::class.java))
                                     finish()
 
                                 } else {

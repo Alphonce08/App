@@ -24,13 +24,21 @@
         android:textSize="16sp"
         android:text="OB Number"/>
 
-    <!-- DATE + TIME -->
+    <!-- Date -->
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#555"
+        android:text="Date"/>
+
+    <!-- TIME -->
     <TextView
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#555"
-        android:text="Date | Time"/>
+        android:text="Time"/>
 
     <!-- OCCURRENCE -->
     <TextView
@@ -41,6 +49,17 @@
         android:layout_marginTop="4dp"
         android:text="Occurrence"/>
 
+
+    <!-- STATUS (NEW IMPORTANT FIELD) -->
+<!--    <TextView-->
+<!--        android:id="@+id/status"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="pending"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_marginTop="6dp"-->
+<!--        android:textColor="#FF5722"/>-->
+
     <!-- SIGN -->
     <TextView
         android:id="@+id/sign"
@@ -49,13 +68,5 @@
         android:textColor="#000"
         android:text="Sign"/>
 
-    <!-- STATUS (NEW IMPORTANT FIELD) -->
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="pending"
-        android:textStyle="bold"
-        android:layout_marginTop="6dp"
-        android:textColor="#FF5722"/>
+
 </LinearLayout>

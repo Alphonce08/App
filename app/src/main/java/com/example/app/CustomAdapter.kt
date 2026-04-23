@@ -10,14 +10,12 @@ import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.FirebaseDatabase
 
 class CustomAdapter(
-    var context: Context,
-    var data: ArrayList<Occurrence>
+    private val context: Context,
+    private val data: ArrayList<Occurrence>
 ) : BaseAdapter() {
 
     override fun getCount(): Int = data.size
-
     override fun getItem(position: Int): Any = data[position]
-
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -25,75 +23,58 @@ class CustomAdapter(
         val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.view_layout, parent, false)
 
-        // 🔗 Link UI
-        val date = view.findViewById<TextView>(R.id.date)
-        val obNum = view.findViewById<TextView>(R.id.obNum)
+        val item = data[position]
+
+        val dateTxt = view.findViewById<TextView>(R.id.date)
+        val obNumTxt = view.findViewById<TextView>(R.id.obNum)
         val timeTxt = view.findViewById<TextView>(R.id.time)
-        val occurBk = view.findViewById<TextView>(R.id.occurrence)
+        val occTxt = view.findViewById<TextView>(R.id.occurrence)
         val signTxt = view.findViewById<TextView>(R.id.sign)
         val menuBtn = view.findViewById<ImageView>(R.id.menuBtn)
 
-        val item = data[position]
+        // ✅ SAFE BINDING
+        dateTxt.text = item.date ?: ""
+        obNumTxt.text = item.obNumber ?: ""
+        timeTxt.text = item.time ?: ""
+        occTxt.text = item.occurence ?: ""
+        signTxt.text = item.sign ?: ""
 
-        // ✅ Bind data
-        date.text = "Date: ${item.date ?: ""}"
-        obNum.text = "OB Number: ${item.obNumber ?: ""}"
-        timeTxt.text = "Time: ${item.time ?: ""}"
-        occurBk.text = "Occurrence Details: ${item.occurence ?: ""}"
-        signTxt.text = "Signature: ${item.sign ?: ""}"
-
-        // 🔽 Popup Menu
         menuBtn.setOnClickListener {
 
             val popup = PopupMenu(context, menuBtn)
             popup.inflate(R.menu.item_menu)
 
-            // ✅ Force icons to show
-            try {
-                val field = popup.javaClass.getDeclaredField("mPopup")
-                field.isAccessible = true
-                val menu = field.get(popup)
-                menu.javaClass
-                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
-                    .invoke(menu, true)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
             popup.setOnMenuItemClickListener { menuItem ->
 
                 when (menuItem.itemId) {
 
-                    // ✏️ EDIT
                     R.id.edit -> {
-
                         val intent = Intent(context, EditActivity::class.java)
-                        intent.putExtra("id", item.rec_id)
+                        intent.putExtra("id", item.rec_id ?: "")
                         intent.putExtra("date", item.date)
                         intent.putExtra("time", item.time)
                         intent.putExtra("ob", item.obNumber)
                         intent.putExtra("occ", item.occurence)
                         intent.putExtra("sign", item.sign)
-
                         context.startActivity(intent)
                         true
                     }
 
-                    // 🗑 DELETE WITH CONFIRMATION
                     R.id.delete -> {
 
-                        if (item.rec_id != null) {
+                        val id = item.rec_id ?: ""
+
+                        if (id.isNotEmpty()) {
 
                             AlertDialog.Builder(context)
                                 .setTitle("Delete Record")
-                                .setMessage("Are you sure you want to delete this record?")
+                                .setMessage("Are you sure?")
                                 .setPositiveButton("Yes") { _, _ ->
 
-                                    val ref = FirebaseDatabase.getInstance()
+                                    FirebaseDatabase.getInstance()
                                         .getReference("occurrences")
-                                        .child(item.rec_id!!)
-
-                                    ref.removeValue()
+                                        .child(id)
+                                        .removeValue()
                                         .addOnSuccessListener {
                                             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
                                         }

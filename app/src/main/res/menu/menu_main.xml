@@ -8,7 +8,10 @@
         android:title="Home" />
     <item
         android:id="@+id/addMenu"
-        android:title="New" />
+        android:title="New Report" />
+    <item
+        android:id="@+id/viewReport"
+        android:title="View Report" />
     <item
         android:id="@+id/logout"
         android:title="Logout" />
