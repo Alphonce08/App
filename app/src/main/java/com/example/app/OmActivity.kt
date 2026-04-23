@@ -89,8 +89,9 @@ class OmActivity : AppCompatActivity() {
         }
 
         viewReport.setOnClickListener {
-            startActivity(Intent(this, ViewActivity::class.java))
-        }
+            startActivity(Intent(this, ViewActivity::class.java).apply {
+                putExtra("filter", "all")
+            })        }
 
         pendingReport.setOnClickListener {
             startActivity(Intent(this, ViewActivity::class.java).apply {
