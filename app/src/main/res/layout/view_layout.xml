@@ -1,72 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="12dp"
-    android:background="#FFFFFF"
-    android:layout_margin="6dp">
+    android:layout_margin="8dp"
+    android:background="@android:color/white"
+    android:elevation="4dp">
 
-    <!-- MENU ICON -->
-    <ImageView
-        android:id="@+id/menuBtn"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_menu"
-        android:layout_gravity="end"/>
-
-    <!-- OB NUMBER -->
-    <TextView
-        android:id="@+id/obNum"
+    <!-- TOP ROW (OB + MENU) -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="OB Number"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <!-- Date -->
+        <TextView
+            android:id="@+id/obNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="OB 001/2026"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/menuBtn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_menu"
+            android:contentDescription="Menu" />
+    </LinearLayout>
+
+    <!-- SPACE -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <!-- DATE -->
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#555"
-        android:text="Date"/>
+        android:text="Date: 12/04/2026"
+        android:textColor="#555" />
 
     <!-- TIME -->
     <TextView
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#555"
-        android:text="Time"/>
+        android:text="Time: 14:30"
+        android:textColor="#555" />
+
+    <!-- SPACE -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
 
     <!-- OCCURRENCE -->
     <TextView
         android:id="@+id/occurrence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:layout_marginTop="4dp"
-        android:text="Occurrence"/>
+        android:text="Occurrence details..."
+        android:textColor="@android:color/black"
+        android:maxLines="3"
+        android:ellipsize="end" />
 
+    <!-- VIEW MORE / LESS -->
+    <TextView
+        android:id="@+id/toggleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View more"
+        android:textStyle="bold"
+        android:textColor="#2196F3"
+        android:layout_marginTop="4dp" />
 
-    <!-- STATUS (NEW IMPORTANT FIELD) -->
-<!--    <TextView-->
-<!--        android:id="@+id/status"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="pending"-->
-<!--        android:textStyle="bold"-->
-<!--        android:layout_marginTop="6dp"-->
-<!--        android:textColor="#FF5722"/>-->
+    <!-- STATUS -->
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pending"
+        android:textStyle="bold"
+        android:textColor="#FF5722"
+        android:layout_marginTop="6dp" />
 
     <!-- SIGN -->
     <TextView
         android:id="@+id/sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:text="Sign"/>
-
+        android:text="Signed by: John"
+        android:textColor="#555"
+        android:layout_marginTop="4dp" />
 
 </LinearLayout>

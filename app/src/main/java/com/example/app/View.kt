@@ -7,6 +7,9 @@ data class Occurrence(
     var obNumber: String? = "",
     var occurence: String? = "",
     var sign: String? = "",
-    var status: String = "pending" // ✅ ADD THIS
+    var status: String = "pending", // ✅ ADD THIS
+
+    var isExpanded: Boolean = false
+
 
 )
