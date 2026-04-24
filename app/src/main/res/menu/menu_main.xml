@@ -13,6 +13,9 @@
         android:id="@+id/viewReport"
         android:title="View Report" />
     <item
+        android:id="@+id/settingTxt"
+        android:title="Settings" />
+    <item
         android:id="@+id/logout"
         android:title="Logout" />
 </menu>

@@ -72,8 +72,8 @@ class OmActivity : AppCompatActivity() {
                 }
 
                 // ✅ IMPORTANT: UPDATE UI
-                txtPendingCount.text = pending.toString()
-                txtCompleteCount.text = complete.toString()
+                txtPendingCount.text = "$pending Pending"
+                txtCompleteCount.text = "$complete Complete"
             }
 
             override fun onCancelled(error: DatabaseError) {
