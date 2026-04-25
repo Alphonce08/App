@@ -90,9 +90,8 @@ class OmActivity : AppCompatActivity() {
         }
 
         viewReport.setOnClickListener {
-            startActivity(Intent(this, ViewActivity::class.java).apply {
-                putExtra("filter", "all")
-            })        }
+            startActivity(Intent(this, ViewActivity::class.java))
+        }
 
         pendingReport.setOnClickListener {
             startActivity(Intent(this, ViewActivity::class.java).apply {
@@ -141,10 +140,11 @@ class OmActivity : AppCompatActivity() {
                         true
                     }
 
-                    R.id.settingTxt -> {
-                        startActivity(Intent(this, SettingsActivity::class.java))
+                    R.id.viewReport -> {
+                        startActivity(Intent(this, ViewActivity::class.java))
                         true
                     }
+
 
                     R.id.logout -> {
                         showLogoutDialog()

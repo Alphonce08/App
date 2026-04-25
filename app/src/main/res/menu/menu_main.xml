@@ -7,14 +7,17 @@
         android:id="@+id/addMenu"
         android:title="New Report" />
     <item
+        android:id="@+id/viewReport"
+        android:title="View Report" />
+    <item
         android:id="@+id/pendingReport"
         android:title="Pending Report" />
     <item
         android:id="@+id/completeReport"
-        android:title="View Report" />
+        android:title="Complete Report" />
     <item
-        android:id="@+id/settingTxt"
-        android:title="Settings" />
+        android:id="@+id/menu_settings"
+        android:title="Settings"/>
     <item
         android:id="@+id/logout"
         android:title="Logout" />
