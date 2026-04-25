@@ -105,6 +105,7 @@ class OmActivity : AppCompatActivity() {
                 putExtra("filter", "complete")
             })
         }
+
     }
 
     private fun setupMenu() {
