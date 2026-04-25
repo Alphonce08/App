@@ -17,6 +17,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var occurrence: EditText
     private lateinit var sign: EditText
     private lateinit var saveBtn: Button
+    private lateinit var backBtn: ImageView
     private lateinit var statusGroup: RadioGroup
 
     private lateinit var database: DatabaseReference
@@ -25,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
+
 
         initViews()
         initFirebase()
@@ -40,6 +42,12 @@ class HomeActivity : AppCompatActivity() {
         sign = findViewById(R.id.sign)
         saveBtn = findViewById(R.id.saveBtn)
         statusGroup = findViewById(R.id.statusGroup)
+
+        backBtn = findViewById(R.id.backBtn)
+        backBtn.setOnClickListener {
+            startActivity(Intent(this, OmActivity::class.java))
+            finish()
+        }
     }
 
     // 🔥 Firebase

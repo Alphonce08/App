@@ -140,8 +140,8 @@ class OmActivity : AppCompatActivity() {
                         true
                     }
 
-                    R.id.addMenu -> {
-                        startActivity(Intent(this, HomeActivity::class.java))
+                    R.id.settingTxt -> {
+                        startActivity(Intent(this, SettingsActivity::class.java))
                         true
                     }
 

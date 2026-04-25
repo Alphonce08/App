@@ -3,6 +3,7 @@ package com.example.app
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -16,6 +17,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var settingsMenu: ImageView
     private lateinit var txtChangeEmail: TextView
     private lateinit var txtChangePassword: TextView
+    private lateinit var backBtn: Button
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +35,11 @@ class SettingsActivity : AppCompatActivity() {
     private fun initViews() {
         txtChangeEmail = findViewById(R.id.cardChangeEmail)
         txtChangePassword = findViewById(R.id.cardChangePassword)
+        backBtn = findViewById(R.id.backBtn)
+
+        backBtn.setOnClickListener {
+            startActivity(Intent(this, OmActivity::class.java))
+        }
     }
 
 

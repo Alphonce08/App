@@ -2,6 +2,7 @@ package com.example.app
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ class EditActivity : AppCompatActivity() {
     private lateinit var occurrence: EditText
     private lateinit var sign: EditText
     private lateinit var updateBtn: Button
+    private lateinit var backBtn: Button
 
     private lateinit var ref: DatabaseReference
     private var id: String? = null
@@ -31,6 +33,7 @@ class EditActivity : AppCompatActivity() {
         occurrence = findViewById(R.id.occurrence)
         sign = findViewById(R.id.sign)
         updateBtn = findViewById(R.id.updateBtn)
+        backBtn = findViewById(R.id.backBtn)
 
         // Get data from Intent
         id = intent.getStringExtra("id")
@@ -40,6 +43,10 @@ class EditActivity : AppCompatActivity() {
         time.setText(intent.getStringExtra("time"))
         occurrence.setText(intent.getStringExtra("occ"))
         sign.setText(intent.getStringExtra("sign"))
+
+        backBtn.setOnClickListener {
+            startActivity(Intent(this, OmActivity::class.java))
+        }
 
         val calendar = Calendar.getInstance()
 
