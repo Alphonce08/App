@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize">
         <activity
+            android:name=".FaqActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
@@ -25,7 +28,6 @@
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
-
         <activity
             android:name=".OmActivity"
             android:exported="false" />

@@ -16,6 +16,7 @@ class OmActivity : AppCompatActivity() {
     private lateinit var menuline: ImageView
     private lateinit var newMenu: ImageView
     private lateinit var viewReport: ImageView
+    private lateinit var faqCard: ImageView
     private lateinit var pendingReport: ImageView
     private lateinit var completeReport: ImageView
 
@@ -41,6 +42,7 @@ class OmActivity : AppCompatActivity() {
         viewReport = findViewById(R.id.viewReport)
         pendingReport = findViewById(R.id.pendingReport)
         completeReport = findViewById(R.id.completeReport)
+        faqCard = findViewById(R.id.faqCard)
 
         txtPendingCount = findViewById(R.id.txtPendingCount)
         txtCompleteCount = findViewById(R.id.txtCompleteCount)
@@ -103,6 +105,9 @@ class OmActivity : AppCompatActivity() {
             startActivity(Intent(this, ViewActivity::class.java).apply {
                 putExtra("filter", "complete")
             })
+        }
+        faqCard.setOnClickListener {
+            startActivity(Intent(this, FaqActivity::class.java))
         }
 
     }
