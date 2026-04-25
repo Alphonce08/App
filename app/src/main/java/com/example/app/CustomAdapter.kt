@@ -78,6 +78,7 @@ class CustomAdapter(
         dateTxt.text = "Date: ${item.date ?: ""}"
         timeTxt.text = "Time: ${item.time ?: ""}"
         obNumTxt.text = item.obNumber ?: ""
+        occTxt.text = "Occurence Details: ${item.occurence ?: ""}"
         signTxt.text = "Signed by: ${item.sign ?: ""}"
 
         // 🔹 Status

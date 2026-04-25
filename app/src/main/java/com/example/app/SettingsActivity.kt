@@ -17,7 +17,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var settingsMenu: ImageView
     private lateinit var txtChangeEmail: TextView
     private lateinit var txtChangePassword: TextView
-    private lateinit var backBtn: Button
+    private lateinit var backBtn: ImageView
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -17,7 +17,7 @@ class EditActivity : AppCompatActivity() {
     private lateinit var occurrence: EditText
     private lateinit var sign: EditText
     private lateinit var updateBtn: Button
-    private lateinit var backBtn: Button
+    private lateinit var backBtn: ImageView
 
     private lateinit var ref: DatabaseReference
     private var id: String? = null
