@@ -10,7 +10,10 @@
         android:id="@+id/addMenu"
         android:title="New Report" />
     <item
-        android:id="@+id/viewReport"
+        android:id="@+id/pendingReport"
+        android:title="Pending Report" />
+    <item
+        android:id="@+id/completeReport"
         android:title="View Report" />
     <item
         android:id="@+id/settingTxt"

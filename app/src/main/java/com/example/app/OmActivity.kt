@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
+
 class OmActivity : AppCompatActivity() {
 
     private lateinit var menuline: ImageView
@@ -72,8 +73,8 @@ class OmActivity : AppCompatActivity() {
                 }
 
                 // ✅ IMPORTANT: UPDATE UI
-                txtPendingCount.text = "$pending Pending"
-                txtCompleteCount.text = "$complete Complete"
+                txtPendingCount.text = "$pending"
+                txtCompleteCount.text = "$complete"
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -118,6 +119,24 @@ class OmActivity : AppCompatActivity() {
 
                     R.id.homeMenu -> {
                         startActivity(Intent(this, ViewActivity::class.java))
+                        true
+                    }
+
+                    R.id.pendingReport -> {
+                        startActivity(
+                            Intent(this, ViewActivity::class.java).apply {
+                                putExtra("filter", "pending")
+                            }
+                        )
+                        true
+                    }
+
+                    R.id.completeReport -> {
+                        startActivity(
+                            Intent(this, ViewActivity::class.java).apply {
+                                putExtra("filter", "complete")
+                            }
+                        )
                         true
                     }
 

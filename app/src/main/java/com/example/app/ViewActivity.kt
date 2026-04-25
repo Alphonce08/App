@@ -13,6 +13,7 @@ class ViewActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView
     private lateinit var newOB: ImageView
+    private lateinit var backBtn: ImageView
 
     private lateinit var dataList: ArrayList<Occurrence>
     private lateinit var adapter: CustomAdapter
@@ -29,6 +30,8 @@ class ViewActivity : AppCompatActivity() {
 
         listView = findViewById(R.id.listView)
         newOB = findViewById(R.id.newOB)
+        backBtn = findViewById(R.id.backBtn)
+
 
         dataList = ArrayList()
 
@@ -36,6 +39,9 @@ class ViewActivity : AppCompatActivity() {
 
         newOB.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
+        }
+        backBtn.setOnClickListener {
+            startActivity(Intent(this, OmActivity::class.java))
         }
     }
 
@@ -50,8 +56,15 @@ class ViewActivity : AppCompatActivity() {
 
     private fun loadData() {
 
-        val filter = intent.getStringExtra("filter")?.lowercase()
+        val filter = intent.getStringExtra("filter")
 
+        if (filter == "pending") {
+            // show only pending
+        } else if (filter == "complete") {
+            // show only complete
+        } else {
+            // show all
+        }
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
