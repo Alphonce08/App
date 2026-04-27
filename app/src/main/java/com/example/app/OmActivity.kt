@@ -127,6 +127,11 @@ class OmActivity : AppCompatActivity() {
                         true
                     }
 
+                    R.id.newMenu -> {
+                        startActivity(Intent(this, HomeActivity::class.java))
+                        true
+                    }
+
                     R.id.pendingReport -> {
                         startActivity(
                             Intent(this, ViewActivity::class.java).apply {

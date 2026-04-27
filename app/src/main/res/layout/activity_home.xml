@@ -159,6 +159,7 @@
             android:textColor="#FFFFFF"/>
 
 
+<!--        <include layout="@layout/activity_footer"/>-->
 
 
 

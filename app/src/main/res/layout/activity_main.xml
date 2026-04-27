@@ -1,114 +1,124 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/main"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center_horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white">
 
-                <include layout="@layout/activity_header_logo"/>
-
-
-                <!-- Title -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Welcome Back"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:layout_marginBottom="32dp"/>
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_gravity="center"/>
-
-                <!-- Email -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Email"
-                    android:textColorHint="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:boxStrokeColor="@android:color/black"
-                    app:hintTextColor="@android:color/black">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/logEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:inputType="textEmailAddress"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Password -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:layout_marginTop="16dp"
-                    app:endIconMode="password_toggle"
-                    android:textColorHint="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:boxStrokeColor="@android:color/black"
-                    app:hintTextColor="@android:color/black">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/logPass"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:inputType="textPassword"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Forgot Password -->
-                <TextView
-                    android:id="@+id/txtForgotPassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Forgot Password?"
-                    android:textColor="#1A73E8"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_gravity="end"/>
-
-                <!-- Login Button -->
-                <Button
-                    android:id="@+id/loginBtn"
-                    android:layout_width="200dp"
-                    android:layout_height="55dp"
-                    android:text="Login"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="24dp"
-                    android:backgroundTint="#1A73E8"
-                    android:textColor="@android:color/white"/>
-
-                <!-- Space -->
-                <View
+                <LinearLayout
+                    android:id="@+id/main"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"/>
-
-                <!-- Sign Up -->
-                <TextView
-                    android:id="@+id/signup"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Don’t have an account? Sign up"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    android:layout_gravity="center"/>
+                    android:orientation="vertical"
+                    android:padding="24dp"
+                    android:gravity="center_horizontal">
 
-        </LinearLayout>
+                        <include layout="@layout/activity_header_logo"/>
 
-</ScrollView>
+                        <!-- Title -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Welcome Back"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_marginBottom="32dp"/>
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:layout_gravity="center"/>
+
+                        <!-- Email -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:hint="Email"
+                            android:textColorHint="@color/black"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxStrokeColor="@android:color/black"
+                            app:hintTextColor="@android:color/black">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/logEmail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@android:color/black"
+                                    android:inputType="textEmailAddress"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Password -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:hint="Password"
+                            android:layout_marginTop="16dp"
+                            app:endIconMode="password_toggle"
+                            android:textColorHint="@color/black"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:boxStrokeColor="@android:color/black"
+                            app:hintTextColor="@android:color/black">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/logPass"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@android:color/black"
+                                    android:inputType="textPassword"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Forgot Password -->
+                        <TextView
+                            android:id="@+id/txtForgotPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Forgot Password?"
+                            android:textColor="#1A73E8"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="50dp"
+                            android:layout_gravity="end"/>
+
+                        <!-- Login Button -->
+                        <Button
+                            android:id="@+id/loginBtn"
+                            android:layout_width="200dp"
+                            android:layout_height="55dp"
+                            android:text="Login"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="24dp"
+                            android:backgroundTint="#1A73E8"
+                            android:textColor="@android:color/white"/>
+
+                        <!-- Space -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"/>
+
+                        <!-- Sign Up -->
+                        <TextView
+                            android:id="@+id/signup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Don’t have an account? Sign up"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp"
+                            android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+        </ScrollView>
+
+        <!-- FOOTER -->
+<!--        <include layout="@layout/activity_footer"/>-->
+
+</LinearLayout>

@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
-
     <TextView
-        android:id="@+id/menu_settings"
+        android:id="@+id/settSet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="settings Activity"
-        android:layout_marginTop="30dp"
-        android:gravity="center"/>
+        android:layout_height="30dp"
+        android:text="welcome"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:textSize="17sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
         android:id="@+id/homeMenu"
         android:title="Home" />
     <item
-        android:id="@+id/addMenu"
+        android:id="@+id/newMenu"
         android:title="New Report" />
     <item
         android:id="@+id/viewReport"

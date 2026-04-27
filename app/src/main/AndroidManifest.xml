@@ -17,10 +17,13 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize">
         <activity
-            android:name=".FaqActivity"
+            android:name=".FooterActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FaqActivity"
             android:exported="false" />
         <activity
             android:name=".Header_logo"

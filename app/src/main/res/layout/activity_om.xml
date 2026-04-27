@@ -256,10 +256,14 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+<!--    <include layout="@layout/activity_footer"/>-->
+
 
 </LinearLayout>
