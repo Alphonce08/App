@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import android.widget.PopupMenu
 
 
 class OmActivity : AppCompatActivity() {
@@ -152,6 +153,11 @@ class OmActivity : AppCompatActivity() {
 
                     R.id.viewReport -> {
                         startActivity(Intent(this, ViewActivity::class.java))
+                        true
+                    }
+
+                    R.id.action_settings -> {
+                        startActivity(Intent(this, SettingsActivity::class.java))
                         true
                     }
 

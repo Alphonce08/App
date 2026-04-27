@@ -16,7 +16,7 @@
         android:id="@+id/completeReport"
         android:title="Complete Report" />
     <item
-        android:id="@+id/menu_settings"
+        android:id="@+id/action_settings"
         android:title="Settings"/>
     <item
         android:id="@+id/logout"
