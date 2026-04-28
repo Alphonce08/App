@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize">
         <activity
+            android:name=".PassChangeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmailChangeActivity"
+            android:exported="false" />
+        <activity
             android:name=".FooterActivity"
             android:exported="false" />
         <activity

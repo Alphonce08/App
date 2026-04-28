@@ -1,16 +1,14 @@
 package com.example.app
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.widget.PopupMenu
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import android.widget.PopupMenu
-
 
 class OmActivity : AppCompatActivity() {
 
@@ -75,13 +73,16 @@ class OmActivity : AppCompatActivity() {
                     }
                 }
 
-                // ✅ IMPORTANT: UPDATE UI
                 txtPendingCount.text = "$pending"
                 txtCompleteCount.text = "$complete"
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@OmActivity, "Failed to load data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@OmActivity,
+                    "Failed to load data",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -107,10 +108,10 @@ class OmActivity : AppCompatActivity() {
                 putExtra("filter", "complete")
             })
         }
+
         faqCard.setOnClickListener {
             startActivity(Intent(this, FaqActivity::class.java))
         }
-
     }
 
     private fun setupMenu() {
@@ -155,15 +156,8 @@ class OmActivity : AppCompatActivity() {
                         startActivity(Intent(this, ViewActivity::class.java))
                         true
                     }
-
                     R.id.action_settings -> {
                         startActivity(Intent(this, SettingsActivity::class.java))
-                        true
-                    }
-
-
-                    R.id.logout -> {
-                        showLogoutDialog()
                         true
                     }
 
@@ -173,18 +167,5 @@ class OmActivity : AppCompatActivity() {
 
             popup.show()
         }
-    }
-
-    private fun showLogoutDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Logout")
-            .setMessage("Are you sure you want to logout?")
-            .setPositiveButton("Yes") { _, _ ->
-                mAuth.signOut()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
     }
 }

@@ -1,17 +1,20 @@
 package com.example.app
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var newEmail: EditText
-    private lateinit var newPassword: EditText
-    private lateinit var btnUpdate: Button
+
+    private lateinit var newEmail: TextView
+    private lateinit var newPass: TextView
+    private lateinit var logout: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,46 +23,40 @@ class SettingsActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         newEmail = findViewById(R.id.newEmail)
-        newPassword = findViewById(R.id.newPassword)
-        btnUpdate = findViewById(R.id.btnUpdate)
+        newPass = findViewById(R.id.newPass)
+        logout = findViewById(R.id.logout)
 
-        btnUpdate.setOnClickListener {
-            updateAccount()
+        // Go to Email Change page
+        newEmail.setOnClickListener {
+            startActivity(Intent(this, EmailChangeActivity::class.java))
+        }
+
+        // Go to Password Change page
+        newPass.setOnClickListener {
+            startActivity(Intent(this, PassChangeActivity::class.java))
+        }
+
+        // Logout
+        logout.setOnClickListener {
+            showLogoutDialog()
         }
     }
 
-    private fun updateAccount() {
+    private fun showLogoutDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Yes") { _, _ ->
+                auth.signOut()
+                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
 
-        val user = auth.currentUser
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
 
-        val email = newEmail.text.toString().trim()
-        val password = newPassword.text.toString().trim()
-
-        if (user == null) {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // 🔹 Update Email
-        if (email.isNotEmpty()) {
-            user.updateEmail(email)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Email updated", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                }
-        }
-
-        // 🔹 Update Password
-        if (password.isNotEmpty()) {
-            user.updatePassword(password)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Password updated", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                }
-        }
+                finish()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }
