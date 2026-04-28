@@ -1,92 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <!-- Header -->
-    <TextView
+    <!-- TOP BAR -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:padding="20dp"
-        android:textColor="#000000"/>
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
-    <!-- Change Email -->
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back"
+            app:tint="@android:color/black"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Settings"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+    <!-- CONTENT (TOP ALIGNED) -->
     <LinearLayout
-        android:id="@+id/changeEmailRow"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingHorizontal="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="0dp"
+        android:gravity="center_horizontal">
 
+        <!-- CHANGE EMAIL -->
         <TextView
             android:id="@+id/newEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:gravity="center"
             android:text="Change Email"
-            android:textSize="18sp"
-            android:textColor="#000"/>
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:background="#EEEEEE"
+            android:layout_marginBottom="20dp"/>
 
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#E5E5E5"/>
-
-
-    <!-- Change Password -->
-    <LinearLayout
-        android:id="@+id/changePasswordRow"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingHorizontal="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
+        <!-- CHANGE PASSWORD -->
         <TextView
             android:id="@+id/newPass"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:gravity="center"
             android:text="Change Password"
-            android:textSize="18sp"
-            android:textColor="#000"/>
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:background="#EEEEEE"
+            android:layout_marginBottom="20dp"/>
 
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#E5E5E5"/>
-
-
-    <!-- Logout -->
-    <LinearLayout
-        android:id="@+id/logoutRow"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingHorizontal="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
+        <!-- LOGOUT -->
         <TextView
             android:id="@+id/logout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:gravity="center"
             android:text="Logout"
-            android:textSize="18sp"
-            android:textColor="#000000"/>
-
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:background="#EEEEEE"/>
 
     </LinearLayout>
 

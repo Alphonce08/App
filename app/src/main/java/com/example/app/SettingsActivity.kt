@@ -3,6 +3,7 @@ package com.example.app
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var newEmail: TextView
     private lateinit var newPass: TextView
     private lateinit var logout: TextView
+    private lateinit var backBtn: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,7 @@ class SettingsActivity : AppCompatActivity() {
         newEmail = findViewById(R.id.newEmail)
         newPass = findViewById(R.id.newPass)
         logout = findViewById(R.id.logout)
+        backBtn = findViewById(R.id.backBtn)
 
         // Go to Email Change page
         newEmail.setOnClickListener {
@@ -34,6 +37,9 @@ class SettingsActivity : AppCompatActivity() {
         // Go to Password Change page
         newPass.setOnClickListener {
             startActivity(Intent(this, PassChangeActivity::class.java))
+        }
+        backBtn.setOnClickListener {
+            startActivity(Intent(this, OmActivity::class.java))
         }
 
         // Logout
