@@ -23,6 +23,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <include layout="@layout/activity_header_logo"/>
+
+
     <!-- Title -->
     <TextView
         android:id="@+id/txtFaqTitle"

@@ -26,6 +26,9 @@
             android:contentDescription="Back"
             app:tint="@android:color/black"/>
 
+        <include layout="@layout/activity_header_logo"/>
+
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
