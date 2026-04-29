@@ -2,95 +2,122 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:padding="24dp">
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp">
 
-    <!-- TITLE -->
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/backBtn"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_back"
+        android:tint="#000000"
+        android:contentDescription="Back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- Title -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Change Password"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="#000000"
+        android:layout_marginTop="70dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- CURRENT PASSWORD -->
+    <!-- Current Password -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/currentPassLayout"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Current Password"
+        android:layout_marginTop="40dp"
         app:endIconMode="password_toggle"
+        android:textColorHint="@android:color/black"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/currentPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- NEW PASSWORD -->
+    <!-- New Password -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/newPassLayout"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="New Password"
+        android:layout_marginTop="16dp"
         app:endIconMode="password_toggle"
+        android:textColorHint="@android:color/black"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/currentPassLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/newPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- CONFIRM PASSWORD (FIXED) -->
+    <!-- Confirm Password -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/confirmPassLayout"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Confirm New Password"
+        android:layout_marginTop="16dp"
         app:endIconMode="password_toggle"
+        android:textColorHint="@android:color/black"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@android:color/black"
+        app:hintTextColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/newPassLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- BUTTON -->
+    <!-- Button -->
     <Button
         android:id="@+id/btnUpdatePassword"
-        android:layout_width="200dp"
+        android:layout_width="220dp"
         android:layout_height="55dp"
+        android:layout_marginTop="32dp"
         android:text="Update Password"
+        android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:backgroundTint="#1A73E8"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/confirmPassLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
