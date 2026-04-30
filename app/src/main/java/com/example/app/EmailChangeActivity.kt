@@ -27,7 +27,7 @@ class EmailChangeActivity : AppCompatActivity() {
             changeEmailAndLogout()
         }
         backBtn.setOnClickListener {
-            startActivity(Intent(this, OmActivity::class.java))
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 
